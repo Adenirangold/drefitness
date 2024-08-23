@@ -26,23 +26,3 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.models || mongoose.model("User", userSchema);
 
 module.exports = User;
-
-interface UserTypes {
-  regNumber: string;
-  firstName: string;
-  secondName: string;
-  age: number;
-  phoneNumber: string;
-  medicalClearance?: boolean;
-  currentHealthIssue: string;
-  nextOfKin: string;
-  nextOfKinPhoneNumber: string;
-  currentWeight: number;
-  currentHeight: number;
-  bmi?: number;
-  dateOfRegistration: Date;
-  subscriptionStartingDate: Date;
-  typeOfSubscription: string;
-  subscriptionActive?: boolean;
-  paymentConfirmed?: boolean;
-}
