@@ -1,8 +1,11 @@
 interface UserSchemaTypes {
   regNumber: string;
-  firstName: string;
-  secondName: string;
-  age: number;
+  name: string;
+  age: sting;
+  email: string;
+  gender: string;
+  marital: string;
+  address: string;
   phoneNumber: string;
   medicalClearance?: boolean;
   currentHealthIssue: string;
@@ -20,8 +23,7 @@ interface UserSchemaTypes {
 
 interface AdminTable {
   regNumber: string;
-  firstName: string;
-  secondName: string;
+  name: string;
   phoneNumber: string;
   typeOfSubscription: string;
   subscriptionActive: boolean;
@@ -30,3 +32,5 @@ interface AdminTable {
   numberOfDaysRemaining: number;
   subscriptionStartingDate: Date;
 }
+
+declare type Status = boolean;

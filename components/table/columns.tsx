@@ -13,70 +13,78 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { format } from "date-fns";
+import { StatusBadge } from "../StatusBadge";
 
 export const columns: ColumnDef<AdminTable>[] = [
   {
     header: "No",
     cell: ({ row }) => {
-      return <p>{row.index + 1}</p>;
+      return <p className="text-14-medium">{row.index + 1}</p>;
     },
   },
   {
     accessorKey: "regNumber",
-    header: "Reg Number",
+    header: "Registration Number",
     cell: ({ row }) => {
-      return <p>{row.original.regNumber}</p>;
+      return <p className="text-14-medium">{row.original.regNumber}</p>;
     },
   },
   {
-    accessorKey: "firstName",
-    header: "First Name",
+    accessorKey: "name",
+    header: "Full Name",
     cell: ({ row }) => {
-      return <p>{row.original.firstName}</p>;
+      return <p className="text-14-medium">{row.original.name}</p>;
     },
   },
-  {
-    accessorKey: "secondName",
-    header: "Last Name",
-    cell: ({ row }) => {
-      return <p>{row.original.secondName}</p>;
-    },
-  },
+
   {
     accessorKey: "phoneNumber",
     header: "Phone Number",
     cell: ({ row }) => {
-      return <p>{row.original.phoneNumber}</p>;
+      return <p className="text-14-medium ">{row.original.phoneNumber}</p>;
     },
   },
   {
     accessorKey: "typeOfSubscription",
     header: "Gym Subscription",
     cell: ({ row }) => {
-      return <p>{row.original.typeOfSubscription}</p>;
+      return (
+        <p className="text-14-medium ">{row.original.typeOfSubscription}</p>
+      );
     },
   },
   {
     accessorKey: "subscriptionActive",
     header: "Subscription Active",
     cell: ({ row }) => {
-      return <p> {row.original.subscriptionActive ? "✅" : "❌"}</p>;
+      const user = row.original;
+
+      return (
+        <div className="min-w-[115px]">
+          <StatusBadge
+            text={`${user.subscriptionActive ? "Active" : "Inactive"}`}
+            status={user.subscriptionActive}
+          />
+        </div>
+      );
     },
   },
   {
     accessorKey: "numberOfDaysRemaining",
     header: "Days Left",
     cell: ({ row }) => {
-      return <p>{row.original.numberOfDaysRemaining}</p>;
+      return (
+        <p className="text-14-medium ">{row.original.numberOfDaysRemaining}</p>
+      );
     },
   },
   {
     accessorKey: "dateOfRegistration",
-    header: "Reg Date",
+    header: "Registration Date",
     cell: ({ row }) => {
       const regDate = new Date(row.original.dateOfRegistration);
       const formattedDate = format(regDate, "dd/MM/yyyy");
-      return <p>{formattedDate}</p>;
+      return <p className="text-14-medium ">{formattedDate}</p>;
     },
   },
   {
@@ -85,20 +93,29 @@ export const columns: ColumnDef<AdminTable>[] = [
     cell: ({ row }) => {
       const regDate = new Date(row.original.subscriptionStartingDate);
       const formattedDate = format(regDate, "dd/MM/yyyy");
-      return <p>{formattedDate}</p>;
+      return <p className="text-14-medium">{formattedDate}</p>;
     },
   },
   {
     accessorKey: "paymentConfirmed",
     header: "Payment Confirmed",
     cell: ({ row }) => {
-      return <p> {row.original.paymentConfirmed ? "✅" : "❌"}</p>;
+      const user = row.original;
+
+      return (
+        <div className="min-w-[115px]">
+          <StatusBadge
+            text={`${user.paymentConfirmed ? "Confirmed" : "Unconfirmed"}`}
+            status={user.paymentConfirmed}
+          />
+        </div>
+      );
     },
   },
 
   {
     accessorKey: "Action",
-    header: () => <div className="text-right">Actions</div>,
+    header: "Actions",
     cell: ({ row }) => {
       const admin = row.original;
 
@@ -110,16 +127,14 @@ export const columns: ColumnDef<AdminTable>[] = [
               <MoreHorizontal className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent className="bg-dark-200" align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(admin.regNumber)}
-            >
-              Copy payment ID
+            <DropdownMenuItem className="dropdown-menu" onClick={() => {}}>
+              Reactivate Subscription
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
+            <DropdownMenuItem className="dropdown-menu">
+              View client details
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

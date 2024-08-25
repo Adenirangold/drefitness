@@ -32,14 +32,28 @@ function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="rounded-md border">
-      <Table>
-        <TableHeader>
+    <div className="data-table">
+      <Table className="shad-table">
+        <TableHeader
+          className=" bg-dark-200  {
+"
+        >
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
+            <TableRow key={headerGroup.id} className="shad-table-row-header">
+              {headerGroup.headers.map((header, index) => {
                 return (
-                  <TableHead key={header.id}>
+                  <TableHead
+                    key={header.id}
+                    className={
+                      index === 0
+                        ? "sticky left-0 z-10"
+                        : index === 1
+                        ? "sticky left-20 z-10"
+                        : index === 2
+                        ? "sticky left-40 z-10"
+                        : ""
+                    }
+                  >
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -57,10 +71,22 @@ function DataTable<TData, TValue>({
             table.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}
+                className="shad-table-row"
                 data-state={row.getIsSelected() && "selected"}
               >
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
+                {row.getVisibleCells().map((cell, index) => (
+                  <TableCell
+                    key={cell.id}
+                    className={
+                      index === 0
+                        ? "sticky left-0 z-10"
+                        : index === 1
+                        ? "sticky left-20 z-10"
+                        : index === 2
+                        ? "sticky left-40 z-10"
+                        : ""
+                    }
+                  >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}

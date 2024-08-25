@@ -2,8 +2,7 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
   regNumber: { type: String, required: true, unique: true },
-  firstName: { type: String, required: true },
-  secondName: { type: String, required: true },
+  name: { type: String, required: true },
   age: { type: Number, required: true },
   phoneNumber: { type: String, required: true },
   medicalClearance: { type: Boolean, required: true },

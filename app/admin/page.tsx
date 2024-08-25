@@ -6,8 +6,7 @@ function AdminPage() {
   const data = [
     {
       regNumber: "10001",
-      firstName: "Alice",
-      secondName: "Johnson",
+      name: "Alice Johnson",
       phoneNumber: "+1234567891",
       typeOfSubscription: "Basic",
       subscriptionActive: true,
@@ -18,8 +17,7 @@ function AdminPage() {
     },
     {
       regNumber: "10002",
-      firstName: "Bob",
-      secondName: "Smith",
+      name: "Bob Smith",
       phoneNumber: "+1234567892",
       typeOfSubscription: "Premium",
       subscriptionActive: true,
@@ -30,8 +28,7 @@ function AdminPage() {
     },
     {
       regNumber: "10003",
-      firstName: "Charlie",
-      secondName: "Brown",
+      name: "Charlie Brown",
       phoneNumber: "+1234567893",
       typeOfSubscription: "Standard",
       subscriptionActive: false,
@@ -42,8 +39,7 @@ function AdminPage() {
     },
     {
       regNumber: "10004",
-      firstName: "Diana",
-      secondName: "Prince",
+      name: "Diana Prince",
       phoneNumber: "+1234567894",
       typeOfSubscription: "Premium",
       subscriptionActive: true,
@@ -54,8 +50,7 @@ function AdminPage() {
     },
     {
       regNumber: "10005",
-      firstName: "Edward",
-      secondName: "King",
+      name: "Edward King",
       phoneNumber: "+1234567895",
       typeOfSubscription: "Basic",
       subscriptionActive: false,
@@ -66,8 +61,7 @@ function AdminPage() {
     },
     {
       regNumber: "10006",
-      firstName: "Fiona",
-      secondName: "Adams",
+      name: "Fiona Amith",
       phoneNumber: "+1234567896",
       typeOfSubscription: "Standard",
       subscriptionActive: true,
@@ -78,8 +72,7 @@ function AdminPage() {
     },
     {
       regNumber: "10007",
-      firstName: "George",
-      secondName: "Miller",
+      name: "Goerge Miller",
       phoneNumber: "+1234567897",
       typeOfSubscription: "Premium",
       subscriptionActive: false,
@@ -90,8 +83,7 @@ function AdminPage() {
     },
     {
       regNumber: "10008",
-      firstName: "Hannah",
-      secondName: "Clark",
+      name: "Hannah Clark",
       phoneNumber: "+1234567898",
       typeOfSubscription: "Basic",
       subscriptionActive: true,
@@ -102,8 +94,7 @@ function AdminPage() {
     },
     {
       regNumber: "10009",
-      firstName: "Ian",
-      secondName: "Scott",
+      name: "Ian Scott",
       phoneNumber: "+1234567899",
       typeOfSubscription: "Standard",
       subscriptionActive: true,
@@ -114,8 +105,7 @@ function AdminPage() {
     },
     {
       regNumber: "10010",
-      firstName: "Jane",
-      secondName: "Doe",
+      name: "Jane Doe",
       phoneNumber: "+1234567800",
       typeOfSubscription: "Premium",
       subscriptionActive: true,
@@ -125,7 +115,19 @@ function AdminPage() {
       subscriptionStartingDate: new Date("2024-03-20"),
     },
   ];
-  return <DataTable data={data} columns={columns}></DataTable>;
+  return (
+    <div className="mx-auto flex max-w-8xl flex-col space-y-14">
+      <main className="admin-main">
+        <section className="w-full space-y-4">
+          <h1 className="header">Welcome 👋</h1>
+          <p className="text-dark-700">
+            Start the day with managing new appointments
+          </p>
+        </section>
+        <DataTable data={data} columns={columns}></DataTable>
+      </main>
+    </div>
+  );
 }
 
 export default AdminPage;
