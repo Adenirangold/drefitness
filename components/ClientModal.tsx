@@ -13,20 +13,9 @@ import {
 } from "@/components/ui/dialog";
 
 import "react-datepicker/dist/react-datepicker.css";
+import ReactivateForm from "./Form/ReactivateForm";
 
-const ClientModal = ({
-  patientId,
-  userId,
-  appointment,
-  type,
-}: {
-  patientId: string;
-  userId: string;
-  appointment?: Appointment;
-  type: "schedule" | "cancel";
-  title: string;
-  description: string;
-}) => {
+const ClientModal = () => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -34,26 +23,23 @@ const ClientModal = ({
       <DialogTrigger asChild>
         <Button
           variant="ghost"
-          className={`capitalize ${type === "schedule" && "text-green-500"}`}
+          className="capitalize border border-green-600 shadow-lg text-light-200"
         >
-          {type}
+          REACTIVATE
         </Button>
       </DialogTrigger>
       <DialogContent className="shad-dialog sm:max-w-md">
         <DialogHeader className="mb-4 space-y-3">
-          <DialogTitle className="capitalize">{type} Appointment</DialogTitle>
+          <DialogTitle className="sub-header">
+            Reactivate Gym Subscription
+          </DialogTitle>
           <DialogDescription>
-            Please fill in the following details to {type} appointment
+            Please fill in the following details to reactivate client
+            subscription
           </DialogDescription>
         </DialogHeader>
 
-        <AppointmentForm
-          userId={userId}
-          patientId={patientId}
-          type={type}
-          appointment={appointment}
-          setOpen={setOpen}
-        />
+        <ReactivateForm></ReactivateForm>
       </DialogContent>
     </Dialog>
   );

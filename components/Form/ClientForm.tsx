@@ -1,9 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -23,11 +21,9 @@ import {
   subscriptionTypes,
 } from "@/constants";
 import { Button } from "../ui/button";
+import SubmitButton from "../SubmitButton";
 
-const RegisterForm = () => {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-
+const ClientForm = () => {
   const form = useForm<z.infer<typeof clientFormValidation>>({
     resolver: zodResolver(clientFormValidation),
     defaultValues: {
@@ -36,9 +32,7 @@ const RegisterForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof clientFormValidation>) => {
-    console.log("jj");
-
-    setIsLoading(true);
+    console.log(values);
   };
 
   return (
@@ -48,8 +42,8 @@ const RegisterForm = () => {
         className="flex-1 space-y-12"
       >
         <section className="space-y-4">
-          <h1 className="header">Welcome 👋</h1>
-          <p className="text-dark-700">Let us have your details.</p>
+          <h1 className="header">Welcome Admin👋</h1>
+          <p className="text-dark-700">Have a blast registering new clients.</p>
         </section>
 
         <section className="space-y-6">
@@ -80,7 +74,7 @@ const RegisterForm = () => {
             <CustomFormField
               fieldType={FormFieldType.INPUT}
               control={form.control}
-              name="phone"
+              name="phoneNumber"
               label="Phone number"
               placeholder="0812995892"
             />
@@ -102,12 +96,6 @@ const RegisterForm = () => {
               label="Age"
               placeholder="10"
             />
-            {/* <CustomFormField
-              fieldType={FormFieldType.DATE_PICKER}
-              control={form.control}
-              name="birthDate"
-              label="Date of birth"
-            /> */}
 
             <CustomFormField
               fieldType={FormFieldType.SKELETON}
@@ -157,7 +145,9 @@ const RegisterForm = () => {
               control={form.control}
               name="address"
               label="Address"
-              placeholder="14 street, New york, NY - 5101"
+              placeholder="Lekki Phase 1, Victoria Island, Lagos, Nigeria.
+
+"
             />
           </div>
         </section>
@@ -238,14 +228,14 @@ const RegisterForm = () => {
               fieldType={FormFieldType.INPUT}
               control={form.control}
               name="currentWeight"
-              label="Weight in Kg"
+              label="Weight"
               placeholder="Weight in kg"
             />
             <CustomFormField
               fieldType={FormFieldType.INPUT}
               control={form.control}
               name="currentHeight"
-              label="Height in cm"
+              label="Height"
               placeholder="Height in cm"
             />
           </div>
@@ -310,10 +300,10 @@ const RegisterForm = () => {
           />
         </section>
 
-        <Button type="submit">Submit</Button>
+        <SubmitButton>Register Client</SubmitButton>
       </form>
     </Form>
   );
 };
 
-export default RegisterForm;
+export default ClientForm;

@@ -19,6 +19,8 @@ interface UserSchemaTypes {
   typeOfSubscription: string;
   subscriptionActive?: boolean;
   paymentConfirmed?: boolean;
+  numberOfDaysRemaining: string;
+  subscriptionCost: string;
 }
 
 interface AdminTable {
@@ -28,9 +30,9 @@ interface AdminTable {
   typeOfSubscription: string;
   subscriptionActive: boolean;
   paymentConfirmed: boolean;
-  dateOfRegistration: Date;
   numberOfDaysRemaining: number;
   subscriptionStartingDate: Date;
+  dateOfRegistration: Date;
 }
 
 declare type Status = boolean;

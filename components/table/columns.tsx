@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
+import { MoreHorizontal, ArrowUpDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -14,6 +14,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { format } from "date-fns";
 import { StatusBadge } from "../StatusBadge";
+import ClientModal from "../ClientModal";
+import DetailsModal from "../DetailsModal";
 
 export const columns: ColumnDef<AdminTable>[] = [
   {
@@ -55,6 +57,7 @@ export const columns: ColumnDef<AdminTable>[] = [
   },
   {
     accessorKey: "subscriptionActive",
+
     header: "Subscription Active",
     cell: ({ row }) => {
       const user = row.original;
@@ -78,18 +81,10 @@ export const columns: ColumnDef<AdminTable>[] = [
       );
     },
   },
-  {
-    accessorKey: "dateOfRegistration",
-    header: "Registration Date",
-    cell: ({ row }) => {
-      const regDate = new Date(row.original.dateOfRegistration);
-      const formattedDate = format(regDate, "dd/MM/yyyy");
-      return <p className="text-14-medium ">{formattedDate}</p>;
-    },
-  },
+
   {
     accessorKey: "subscriptionStartingDate",
-    header: "Subscription Date",
+    header: " Sub-Start Date",
     cell: ({ row }) => {
       const regDate = new Date(row.original.subscriptionStartingDate);
       const formattedDate = format(regDate, "dd/MM/yyyy");
@@ -112,31 +107,27 @@ export const columns: ColumnDef<AdminTable>[] = [
       );
     },
   },
+  {
+    accessorKey: "dateOfRegistration",
+    header: " Registration Date",
+    cell: ({ row }) => {
+      const regDate = new Date(row.original.dateOfRegistration);
+      const formattedDate = format(regDate, "dd/MM/yyyy");
+      return <p className="text-14-medium">{formattedDate}</p>;
+    },
+  },
 
   {
     accessorKey: "Action",
     header: "Actions",
     cell: ({ row }) => {
-      const admin = row.original;
+      const appointment = row.original;
 
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="bg-dark-200" align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem className="dropdown-menu" onClick={() => {}}>
-              Reactivate Subscription
-            </DropdownMenuItem>
-            <DropdownMenuItem className="dropdown-menu">
-              View client details
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="flex gap-4">
+          <ClientModal></ClientModal>
+          <DetailsModal></DetailsModal>
+        </div>
       );
     },
   },
