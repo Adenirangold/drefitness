@@ -4,23 +4,19 @@ interface UserSchemaTypes {
   age: sting;
   email: string;
   gender: string;
-  marital: string;
+  marital: "Single" | "Married" | "Divorced" | "Widowed";
   address: string;
   phoneNumber: string;
-  medicalClearance?: boolean;
+  medicalClearance?: "true" | "false";
   currentHealthIssue: string;
   nextOfKin: string;
   nextOfKinPhoneNumber: string;
   currentWeight: number;
   currentHeight: number;
-  bmi?: number;
   dateOfRegistration: Date;
   subscriptionStartingDate: Date;
   typeOfSubscription: string;
-  subscriptionActive?: boolean;
-  paymentConfirmed?: boolean;
-  numberOfDaysRemaining: string;
-  subscriptionCost: string;
+  paymentConfirmed?: "true" | "false";
 }
 
 interface AdminTable {

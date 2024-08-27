@@ -2,12 +2,13 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { Button } from "./ui/button";
 
 function AddClientButton() {
   const router = useRouter();
   return (
-    <button
-      className="flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+    <Button
+      className="flex items-center border border-green-500 text-light-200 px-4 py-2 rounded-lg"
       onClick={() => {
         router.push("/admin/add-client");
       }}
@@ -19,8 +20,8 @@ function AddClientButton() {
         src="/assets/icons/add-plus.svg"
         className="w-6 h-6 mr-2"
       />
-      Add New Client
-    </button>
+      ADD NEW CLIENT
+    </Button>
   );
 }
 

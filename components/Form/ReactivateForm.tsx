@@ -115,7 +115,7 @@ const ReactivateForm = () => {
           />
         </section>
 
-        <SubmitButton>Renew Subscription</SubmitButton>
+        <SubmitButton>RENEW SUBSCRIPTION</SubmitButton>
       </form>
     </Form>
   );

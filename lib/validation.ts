@@ -20,12 +20,9 @@ export const clientFormValidation = z.object({
   currentHealthIssue: z.string().optional(),
   currentWeight: z.string().min(1, "Weight is required"),
   currentHeight: z.string().min(1, "Height is required"),
-  // bmi: z.string().min(1, "bmi is required"),
   typeOfSubscription: z.string().min(1, "Subscription type is required"),
   dateOfRegistration: z.date(),
   subscriptionStartingDate: z.date(),
-  // subscriptionCost: z.string().min(1, "Cost is required"),
-  // subscriptionActive: z.enum(["true", "false"]),
   paymentConfirmed: z.enum(["true", "false"]),
 });
 

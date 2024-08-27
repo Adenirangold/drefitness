@@ -1,15 +1,16 @@
 import React from "react";
+import SubmitButton from "./SubmitButton";
 
 const UserDetailsCard = ({ user }: { user: UserSchemaTypes }) => {
   return (
-    <div className="stat-card shadow-lg">
+    <div className=" ">
       <div className="flex-between">
-        <div className="text-24-bold">User Details</div>
+        <div className="sub-header">Reg No: {user.regNumber}</div>
         <div
           className={`status-badge ${
             user.subscriptionActive
-              ? "bg-green-500 text-white"
-              : "bg-red-500 text-white"
+              ? "bg-green-600 text-green-500"
+              : "bg-red-600 text-red-500"
           }`}
         >
           {user.subscriptionActive ? "Active" : "Inactive"}
@@ -17,9 +18,6 @@ const UserDetailsCard = ({ user }: { user: UserSchemaTypes }) => {
       </div>
 
       <div className="mt-4 space-y-2">
-        <div className="text-16-semibold">
-          Reg Number: <span className="text-16-regular">{user.regNumber}</span>
-        </div>
         <div className="text-16-semibold">
           Name: <span className="text-16-regular">{user.name}</span>
         </div>
@@ -81,21 +79,27 @@ const UserDetailsCard = ({ user }: { user: UserSchemaTypes }) => {
         <div className="text-16-semibold">
           Registered On:{" "}
           <span className="text-16-regular">
-            {user.dateOfRegistration.toLocaleDateString()}
+            {user.dateOfRegistration.toLocaleDateString("default", {
+              month: "long",
+              day: "2-digit",
+              year: "numeric",
+            })}
           </span>
         </div>
         <div className="text-16-semibold">
           Start Date:{" "}
           <span className="text-16-regular">
-            {user.subscriptionStartingDate.toLocaleDateString()}
+            {user.subscriptionStartingDate.toLocaleDateString("default", {
+              month: "long",
+              day: "2-digit",
+              year: "numeric",
+            })}
           </span>
         </div>
       </div>
 
       <div className="flex justify-center mt-6">
-        <button className="shad-primary-btn text-16-semibold py-2 px-4 rounded-lg">
-          Edit Details
-        </button>
+        <SubmitButton>EDIT CLIENT</SubmitButton>
       </div>
     </div>
   );

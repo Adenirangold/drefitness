@@ -1,21 +1,9 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal, ArrowUpDown } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { format } from "date-fns";
 import { StatusBadge } from "../StatusBadge";
 import ClientModal from "../ClientModal";
-import DetailsModal from "../DetailsModal";
+import DetailsButton from "../DetailsButton";
 
 export const columns: ColumnDef<AdminTable>[] = [
   {
@@ -87,7 +75,11 @@ export const columns: ColumnDef<AdminTable>[] = [
     header: " Sub-Start Date",
     cell: ({ row }) => {
       const regDate = new Date(row.original.subscriptionStartingDate);
-      const formattedDate = format(regDate, "dd/MM/yyyy");
+      const formattedDate = regDate.toLocaleString("default", {
+        month: "long",
+        day: "2-digit",
+        year: "numeric",
+      });
       return <p className="text-14-medium">{formattedDate}</p>;
     },
   },
@@ -112,7 +104,11 @@ export const columns: ColumnDef<AdminTable>[] = [
     header: " Registration Date",
     cell: ({ row }) => {
       const regDate = new Date(row.original.dateOfRegistration);
-      const formattedDate = format(regDate, "dd/MM/yyyy");
+      const formattedDate = regDate.toLocaleString("default", {
+        month: "long",
+        day: "2-digit",
+        year: "numeric",
+      });
       return <p className="text-14-medium">{formattedDate}</p>;
     },
   },
@@ -121,12 +117,12 @@ export const columns: ColumnDef<AdminTable>[] = [
     accessorKey: "Action",
     header: "Actions",
     cell: ({ row }) => {
-      const appointment = row.original;
+      const client = row.original;
 
       return (
         <div className="flex gap-4">
           <ClientModal></ClientModal>
-          <DetailsModal></DetailsModal>
+          <DetailsButton client={client}></DetailsButton>
         </div>
       );
     },

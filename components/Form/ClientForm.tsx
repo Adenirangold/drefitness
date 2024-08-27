@@ -23,11 +23,35 @@ import {
 import { Button } from "../ui/button";
 import SubmitButton from "../SubmitButton";
 
-const ClientForm = () => {
+const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
+  console.log(user);
+
+  const specificDefaultValue = {
+    regNumber: user?.regNumber,
+    name: user?.name,
+    age: user?.age,
+    email: user?.email,
+    gender: user?.gender,
+    marital: user?.marital,
+    address: user?.address,
+    phoneNumber: user?.phoneNumber,
+    medicalClearance: user?.medicalClearance,
+    currentHealthIssue: user?.currentHealthIssue,
+    nextOfKin: user?.nextOfKin,
+    nextOfKinPhoneNumber: user?.nextOfKinPhoneNumber,
+    currentWeight: user?.currentWeight,
+    currentHeight: user?.currentHeight,
+    dateOfRegistration: user?.dateOfRegistration,
+    subscriptionStartingDate: user?.subscriptionStartingDate,
+    typeOfSubscription: user?.typeOfSubscription,
+    paymentConfirmed: user?.paymentConfirmed,
+  };
+
+  const normalDefaultValue = user ? specificDefaultValue : clientDefaultValue;
   const form = useForm<z.infer<typeof clientFormValidation>>({
     resolver: zodResolver(clientFormValidation),
     defaultValues: {
-      ...clientDefaultValue,
+      ...normalDefaultValue,
     },
   });
 
@@ -39,7 +63,7 @@ const ClientForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex-1 space-y-12"
+        className="flex-1 space-y-12 "
       >
         <section className="space-y-4">
           <h1 className="header">Welcome Admin👋</h1>
