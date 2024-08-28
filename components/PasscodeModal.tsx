@@ -3,15 +3,44 @@ import React, { useState } from "react";
 import {
   InputOTP,
   InputOTPGroup,
-  InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { Button } from "./ui/button";
 import SubmitButton from "./SubmitButton";
+import { compare, hashed } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 function PasscodeModal() {
   const [passkey, setPasskey] = useState("");
-  console.log(passkey);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const router = useRouter();
+
+  const handlePasskey = async () => {
+    const secret = process.env.NEXT_PUBLIC_PASSWORD;
+
+    try {
+      setIsLoading(true);
+
+      const hashedPasscode = await hashed(secret);
+
+      const verify = await compare(passkey, hashedPasscode);
+
+      if (!verify) {
+        throw new Error("Passcode verification failed");
+      }
+
+      document.cookie = `admin=${hashedPasscode}; path=/; secure; samesite=strict;`;
+
+      setIsLoading(false);
+
+      router.push("/admin");
+    } catch (err) {
+      setError(true);
+      setIsLoading(false);
+      console.log("Error in passcode verification:", err);
+    }
+  };
 
   return (
     <div className="fixed left-1/2 top-1/2 z-50 w-full max-w-md p-6 translate-x-[-50%] translate-y-[-50%] border  border-dark-500 bg-dark-400 shadow-lg rounded-lg flex flex-col items-center">
@@ -41,7 +70,16 @@ function PasscodeModal() {
           </InputOTPGroup>
         </InputOTP>
 
-        <SubmitButton>Verify</SubmitButton>
+        {error && (
+          <p className="shad-error text-center sm:text-left">
+            The passcode you entered is incorrect. Please try again with the
+            correct passcode
+          </p>
+        )}
+
+        <SubmitButton isLoading={isLoading} onClick={handlePasskey}>
+          VERIFY
+        </SubmitButton>
       </div>
     </div>
   );
