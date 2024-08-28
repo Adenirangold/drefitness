@@ -86,7 +86,7 @@
 
   /* ===== ADMIN */
   .admin-header {
-    @apply sticky top-0  bg-dark-200 flex items-center justify-between  px-[5%] py-5  xl:px-12;
+    @apply sticky z-50 top-0  bg-dark-200 flex items-center justify-between  px-[5%] py-5  xl:px-12;
   }
 
   .admin-main {
@@ -186,7 +186,7 @@
 
   /* =====  SHADCN OVERRIDES */
   .shad-primary-btn {
-    @apply bg-green-500 text-white !important;
+    @apply bg-blue-500 text-white !important;
   }
 
   .shad-danger-btn {
@@ -253,16 +253,16 @@
     @apply border-b border-dark-400 text-light-200 !important;
   }
 
-  .shad-otp {
-    @apply w-full flex justify-between !important;
+  .shad-otp-slot {
+    @apply text-36-bold flex items-center justify-center border border-dark-500 rounded-lg p-2 w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 gap-4 !important;
   }
 
-  .shad-otp-slot {
-    @apply text-36-bold justify-center flex border border-dark-500 rounded-lg size-16 gap-4 !important;
+  .shad-otp {
+    @apply w-full max-w-[320px] sm:max-w-none flex justify-center space-x-2 sm:space-x-4 !important;
   }
 
   .shad-alert-dialog {
-    @apply space-y-5 bg-dark-400 border-dark-500 outline-none !important;
+    @apply space-y-5  bg-dark-400 border-dark-500 outline-none !important;
   }
 
   .shad-sheet-content button {
@@ -321,13 +321,13 @@
 }
 
 .react-datepicker__day--selected {
-  background-color: #24ae7c !important;
+  background-color: #79b5ec !important;
   color: #ffffff !important;
   border-radius: 4px;
 }
 
 .react-datepicker__time-list-item--selected {
-  background-color: #24ae7c !important;
+  background-color: #79b5ec !important;
 }
 
 .react-datepicker__time-container {

@@ -8,7 +8,7 @@ function AddClientButton() {
   const router = useRouter();
   return (
     <Button
-      className="flex items-center border border-green-500 text-light-200 px-4 py-2 rounded-lg"
+      className="flex items-center border-2 border-blue-500 text-light-200 px-4 py-2 rounded-lg"
       onClick={() => {
         router.push("/admin/add-client");
       }}

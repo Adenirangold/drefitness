@@ -24,8 +24,6 @@ import { Button } from "../ui/button";
 import SubmitButton from "../SubmitButton";
 
 const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
-  console.log(user);
-
   const specificDefaultValue = {
     regNumber: user?.regNumber,
     name: user?.name,
@@ -324,7 +322,9 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
           />
         </section>
 
-        <SubmitButton>Register Client</SubmitButton>
+        <SubmitButton>
+          {user ? "EDIT CLIENT DETAILS" : "REGISTER CLIENT"}
+        </SubmitButton>
       </form>
     </Form>
   );

@@ -13,11 +13,11 @@ function AdminPage() {
       <header className="admin-header">
         <Link href="/admin" className="cursor-pointer">
           <Image
-            src="/assets/icons/logo-full.svg"
+            src="/assets/images/fitness-logo.png"
             height={32}
             width={162}
             alt="logo"
-            className="h-8 w-fit"
+            className="h-12 w-fit"
           />
         </Link>
       </header>
