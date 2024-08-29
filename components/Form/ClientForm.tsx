@@ -22,6 +22,7 @@ import {
 } from "@/constants";
 import { Button } from "../ui/button";
 import SubmitButton from "../SubmitButton";
+import { StatusBadge } from "../StatusBadge";
 
 const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
   const specificDefaultValue = {
@@ -64,16 +65,25 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
         className="flex-1 space-y-12 "
       >
         <section className="space-y-4">
-          <h1 className="header">Welcome Admin👋</h1>
-          <p className="text-dark-700">Have a blast registering new clients.</p>
+          <div className=" items-center  sm:flex ">
+            <div>
+              <h1 className="header">Welcome Admin👋</h1>
+              <p className="text-dark-700">
+                Have a blast registering new clients.
+              </p>
+            </div>
+            {user && (
+              <div className="ml-auto mt-7 sm:mt-0">
+                <StatusBadge status={true} text="active"></StatusBadge>
+              </div>
+            )}
+          </div>
         </section>
 
         <section className="space-y-6">
           <div className="mb-9 space-y-1">
             <h2 className="sub-header">Personal Information</h2>
           </div>
-
-          {/*  */}
 
           <CustomFormField
             fieldType={FormFieldType.INPUT}
@@ -176,7 +186,7 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
 
         <section className="space-y-6">
           <div className="mb-9 space-y-1">
-            <h2 className="sub-header">Next Of Kin Information</h2>
+            <h2 className="sub-header">Emergency Contact Information</h2>
           </div>
 
           <div className="flex flex-col gap-6 xl:flex-row">
@@ -233,18 +243,6 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
               )}
             />
           </div>
-          <CustomFormField
-            fieldType={FormFieldType.TEXTAREA}
-            control={form.control}
-            name="currentHealthIssue"
-            label=" Curent Health issue (if relevant)"
-            placeholder="Asthma,HBP"
-          />
-        </section>
-        <section className="space-y-6">
-          <div className="mb-9 space-y-1">
-            <h2 className="sub-header">Gym Information</h2>
-          </div>
           <div className="flex flex-col gap-6 xl:flex-row">
             <CustomFormField
               fieldType={FormFieldType.INPUT}
@@ -260,6 +258,18 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
               label="Height"
               placeholder="Height in cm"
             />
+          </div>
+          <CustomFormField
+            fieldType={FormFieldType.TEXTAREA}
+            control={form.control}
+            name="currentHealthIssue"
+            label=" Curent Health issue (if relevant)"
+            placeholder="Asthma,HBP"
+          />
+        </section>
+        <section className="space-y-6">
+          <div className="mb-9 space-y-1">
+            <h2 className="sub-header">Membership Details</h2>
           </div>
 
           <CustomFormField

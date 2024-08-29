@@ -15,7 +15,7 @@ import {
 import "react-datepicker/dist/react-datepicker.css";
 import ReactivateForm from "./Form/ReactivateForm";
 
-const ClientModal = () => {
+const ClientModal = ({ client }: { client: UserSchemaTypes }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -39,7 +39,7 @@ const ClientModal = () => {
           </DialogDescription>
         </DialogHeader>
 
-        <ReactivateForm></ReactivateForm>
+        <ReactivateForm client={client}></ReactivateForm>
       </DialogContent>
     </Dialog>
   );

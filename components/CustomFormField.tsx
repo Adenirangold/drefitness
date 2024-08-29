@@ -55,7 +55,9 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
           )}
           <FormControl>
             <Input
+              // required
               placeholder={props.placeholder}
+              disabled={props.disabled}
               {...field}
               className="shad-input border-0"
             />
@@ -103,7 +105,7 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
             <ReactDatePicker
               showTimeSelect={props.showTimeSelect ?? false}
               selected={field.value}
-              onChange={(date: Date) => field.onChange(date)}
+              onChange={(date: Date | null) => field.onChange(date)}
               timeInputLabel="Time:"
               dateFormat={props.dateFormat ?? "MM/dd/yyyy"}
               wrapperClassName="date-picker"

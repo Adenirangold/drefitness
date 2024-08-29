@@ -121,7 +121,7 @@ export const columns: ColumnDef<AdminTable>[] = [
 
       return (
         <div className="flex gap-4">
-          <ClientModal></ClientModal>
+          <ClientModal client={client}></ClientModal>
           <DetailsButton client={client}></DetailsButton>
         </div>
       );

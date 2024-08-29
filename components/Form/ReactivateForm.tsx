@@ -24,11 +24,13 @@ import {
 import { Button } from "../ui/button";
 import SubmitButton from "../SubmitButton";
 
-const ReactivateForm = () => {
+const ReactivateForm = ({ client }: { client: UserSchemaTypes }) => {
   const form = useForm<z.infer<typeof registerFormValidation>>({
     resolver: zodResolver(registerFormValidation),
     defaultValues: {
       ...RegisterDefaultValue,
+      regNumber: client.regNumber,
+      name: client.name,
     },
   });
 
@@ -55,11 +57,13 @@ const ReactivateForm = () => {
             name="regNumber"
             placeholder="001"
             label="Registration Number"
+            disabled
           />
           <CustomFormField
             fieldType={FormFieldType.INPUT}
             control={form.control}
             name="name"
+            disabled
             label="Name"
             placeholder="John Doe"
             iconSrc="/assets/icons/user.svg"

@@ -5,7 +5,7 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import { Button } from "./ui/button";
+
 import SubmitButton from "./SubmitButton";
 import { compare, hashed } from "@/lib/utils";
 import { useRouter } from "next/navigation";
@@ -29,8 +29,9 @@ function PasscodeModal() {
       if (!verify) {
         throw new Error("Passcode verification failed");
       }
-
-      document.cookie = `admin=${hashedPasscode}; path=/; secure; samesite=strict;`;
+      const expirationTime = new Date();
+      expirationTime.setTime(expirationTime.getTime() + 60 * 60 * 1000);
+      document.cookie = `admin=${hashedPasscode}; path=/; secure; expires=${expirationTime.toUTCString()};  samesite=strict;`;
 
       setIsLoading(false);
 
