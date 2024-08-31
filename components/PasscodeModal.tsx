@@ -33,8 +33,6 @@ function PasscodeModal() {
       expirationTime.setTime(expirationTime.getTime() + 60 * 60 * 1000);
       document.cookie = `admin=${hashedPasscode}; path=/; secure; expires=${expirationTime.toUTCString()};  samesite=strict;`;
 
-      setIsLoading(false);
-
       router.push("/admin");
     } catch (err) {
       setError(true);

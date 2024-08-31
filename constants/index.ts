@@ -13,7 +13,7 @@ export const clientDefaultValue = {
   address: "",
   phoneNumber: "",
   medicalClearance: "true" as "true" | "false",
-  currentHealthIssue: "",
+  // currentHealthIssue: "None",
   nextOfKin: "",
   nextOfKinPhoneNumber: "",
   currentWeight: "",

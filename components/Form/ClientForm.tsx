@@ -23,8 +23,11 @@ import {
 import { Button } from "../ui/button";
 import SubmitButton from "../SubmitButton";
 import { StatusBadge } from "../StatusBadge";
+import { registerMemberAction } from "@/lib/action";
+import { useRouter } from "next/navigation";
 
 const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
+  const router = useRouter();
   const specificDefaultValue = {
     regNumber: user?.regNumber,
     name: user?.name,
@@ -56,6 +59,54 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
 
   const onSubmit = async (values: z.infer<typeof clientFormValidation>) => {
     console.log(values);
+    const {
+      regNumber,
+      name,
+      age,
+      email,
+      gender,
+      marital,
+      address,
+      phoneNumber,
+      medicalClearance,
+      currentHealthIssue,
+      nextOfKin,
+      nextOfKinPhoneNumber,
+      currentWeight,
+      currentHeight,
+      typeOfSubscription,
+      dateOfRegistration,
+      subscriptionStartingDate,
+      paymentConfirmed,
+    } = values;
+    try {
+      const { redirect, error } = await registerMemberAction({
+        regNumber,
+        name,
+        age,
+        email,
+        gender,
+        marital,
+        address,
+        phoneNumber,
+        medicalClearance,
+        currentHealthIssue,
+        nextOfKin,
+        nextOfKinPhoneNumber,
+        currentWeight,
+        currentHeight,
+        typeOfSubscription,
+        dateOfRegistration,
+        subscriptionStartingDate,
+        paymentConfirmed,
+      });
+      if (error) {
+        throw new Error(error);
+      }
+      router.push(redirect!);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -90,13 +141,13 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
             control={form.control}
             name="regNumber"
             placeholder="001"
-            label="Registration Number"
+            label="Registration Number*"
           />
           <CustomFormField
             fieldType={FormFieldType.INPUT}
             control={form.control}
             name="name"
-            label="Name"
+            label="Name*"
             placeholder="John Doe"
             iconSrc="/assets/icons/user.svg"
             iconAlt="user"
@@ -107,7 +158,7 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
               fieldType={FormFieldType.INPUT}
               control={form.control}
               name="phoneNumber"
-              label="Phone number"
+              label="Phone number*"
               placeholder="0812995892"
             />
             <CustomFormField
@@ -133,7 +184,7 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
               fieldType={FormFieldType.SKELETON}
               control={form.control}
               name="gender"
-              label="Gender"
+              label="Gender*"
               renderSkeleton={(field) => (
                 <FormControl>
                   <RadioGroup
@@ -159,7 +210,7 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
               fieldType={FormFieldType.SELECT}
               control={form.control}
               name="marital"
-              label="Marital status"
+              label="Marital status*"
               placeholder="Select relationship status"
             >
               {maritalStatus.map((type, i) => (
@@ -218,7 +269,7 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
               fieldType={FormFieldType.SKELETON}
               control={form.control}
               name="medicalClearance"
-              label="Medical clearance"
+              label="Medical clearance*"
               renderSkeleton={(field) => (
                 <FormControl>
                   <RadioGroup
@@ -276,7 +327,7 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
             fieldType={FormFieldType.SELECT}
             control={form.control}
             name="typeOfSubscription"
-            label="Type of subscription"
+            label="Type of subscription*"
             placeholder="Choose Subscription"
           >
             {subscriptionTypes.map((type, i) => (
@@ -291,14 +342,14 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
               fieldType={FormFieldType.DATE_PICKER}
               control={form.control}
               name="dateOfRegistration"
-              label="Registration date"
+              label="Registration date*"
               placeholder="mm/dd/yyyy"
             />
             <CustomFormField
               fieldType={FormFieldType.DATE_PICKER}
               control={form.control}
               name="subscriptionStartingDate"
-              label="Subscribtion date"
+              label="Subscribtion date*"
               placeholder="mm/dd/yyyy"
             />
           </div>
@@ -306,7 +357,7 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
             fieldType={FormFieldType.SKELETON}
             control={form.control}
             name="paymentConfirmed"
-            label="Payment confirmed"
+            label="Payment confirmed*"
             renderSkeleton={(field) => (
               <FormControl>
                 <RadioGroup

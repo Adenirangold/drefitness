@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+import { Schema } from "zod";
 
 const memberSchema = new mongoose.Schema({
   regNumber: {
@@ -40,7 +41,6 @@ const memberSchema = new mongoose.Schema({
   },
   nextOfKin: {
     type: String,
-    // required: [true, "Next of kin is required"],
     sparse: true,
   },
   nextOfKinPhoneNumber: {
@@ -57,15 +57,16 @@ const memberSchema = new mongoose.Schema({
   currentHealthIssue: {
     type: String,
     default: "none",
+    sparse: true,
   },
   currentWeight: {
     type: String,
-    // required: [true, "Weight is required"],
+
     sparse: true,
   },
   currentHeight: {
     type: String,
-    // required: [true, "Height is required"],
+
     sparse: true,
   },
   typeOfSubscription: {
@@ -83,10 +84,14 @@ const memberSchema = new mongoose.Schema({
   paymentConfirmed: {
     type: String,
     enum: ["true", "false"],
-    sparse: true,
+    required: [true, "Payment confirmation is required"],
   },
 });
 
-const Member = mongoose.models || mongoose.model("Member", memberSchema);
+const Member =
+  mongoose.models.Member ||
+  mongoose.model<UserSchemaTypes>("Member", memberSchema);
 
-module.exports = Member;
+console.log(mongoose.models);
+
+export default Member;
