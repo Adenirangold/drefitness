@@ -35,6 +35,7 @@ const ReactivateForm = ({
       name: client.name,
     },
   });
+  const { isSubmitting } = form.formState;
 
   const onSubmit = async (values: z.infer<typeof registerFormValidation>) => {
     const input = {
@@ -143,7 +144,7 @@ const ReactivateForm = ({
           />
         </section>
 
-        <SubmitButton>RENEW SUBSCRIPTION</SubmitButton>
+        <SubmitButton isLoading={isSubmitting}>RENEW SUBSCRIPTION</SubmitButton>
       </form>
     </Form>
   );
