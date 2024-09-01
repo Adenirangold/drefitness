@@ -337,72 +337,75 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
             placeholder="Asthma,HBP"
           />
         </section>
-        {!user && (
-          <section className="space-y-6">
-            <div className="mb-9 space-y-1">
-              <h2 className="sub-header">Membership Details</h2>
-            </div>
 
-            <CustomFormField
-              fieldType={FormFieldType.SELECT}
-              control={form.control}
-              name="typeOfSubscription"
-              label="Type of subscription*"
-              placeholder="Choose Subscription"
-            >
-              {subscriptionTypes.map((type, i) => (
-                <SelectItem key={i} value={type.name}>
-                  {type.name}
-                </SelectItem>
-              ))}
-            </CustomFormField>
+        <section className="space-y-6">
+          <div className="mb-9 space-y-1">
+            <h2 className="sub-header">Membership Details</h2>
+          </div>
 
-            <div className="flex flex-col gap-6 xl:flex-row">
-              <CustomFormField
-                fieldType={FormFieldType.DATE_PICKER}
-                control={form.control}
-                name="dateOfRegistration"
-                label="Registration date*"
-                placeholder="mm/dd/yyyy"
-              />
-              <CustomFormField
-                fieldType={FormFieldType.DATE_PICKER}
-                control={form.control}
-                name="subscriptionStartingDate"
-                label="Subscribtion date*"
-                placeholder="mm/dd/yyyy"
-              />
-            </div>
+          <CustomFormField
+            fieldType={FormFieldType.SELECT}
+            control={form.control}
+            name="typeOfSubscription"
+            label="Type of subscription*"
+            disabled={user ? true : false}
+            placeholder="Choose Subscription"
+          >
+            {subscriptionTypes.map((type, i) => (
+              <SelectItem key={i} value={type.name}>
+                {type.name}
+              </SelectItem>
+            ))}
+          </CustomFormField>
+
+          <div className="flex flex-col gap-6 xl:flex-row">
             <CustomFormField
-              fieldType={FormFieldType.SKELETON}
+              fieldType={FormFieldType.DATE_PICKER}
               control={form.control}
-              name="paymentConfirmed"
-              label="Payment confirmed*"
-              renderSkeleton={(field) => (
-                <FormControl>
-                  <RadioGroup
-                    className="flex h-11 gap-6 xl:justify-between"
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <div className="radio-group">
-                      <RadioGroupItem value="true" id="true" />
-                      <Label htmlFor="true" className="cursor-pointer">
-                        Yes
-                      </Label>
-                    </div>
-                    <div className="radio-group">
-                      <RadioGroupItem value="false" id="false" />
-                      <Label htmlFor="false" className="cursor-pointer">
-                        No
-                      </Label>
-                    </div>
-                  </RadioGroup>
-                </FormControl>
-              )}
+              name="dateOfRegistration"
+              label="Registration date*"
+              disabled={user ? true : false}
+              placeholder="mm/dd/yyyy"
             />
-          </section>
-        )}
+            <CustomFormField
+              fieldType={FormFieldType.DATE_PICKER}
+              control={form.control}
+              name="subscriptionStartingDate"
+              label="Subscribtion date*"
+              disabled={user ? true : false}
+              placeholder="mm/dd/yyyy"
+            />
+          </div>
+          <CustomFormField
+            fieldType={FormFieldType.SKELETON}
+            control={form.control}
+            name="paymentConfirmed"
+            label="Payment confirmed*"
+            disabled={user ? true : false}
+            renderSkeleton={(field) => (
+              <FormControl>
+                <RadioGroup
+                  className="flex h-11 gap-6 xl:justify-between"
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <div className="radio-group">
+                    <RadioGroupItem value="true" id="true" />
+                    <Label htmlFor="true" className="cursor-pointer">
+                      Yes
+                    </Label>
+                  </div>
+                  <div className="radio-group">
+                    <RadioGroupItem value="false" id="false" />
+                    <Label htmlFor="false" className="cursor-pointer">
+                      No
+                    </Label>
+                  </div>
+                </RadioGroup>
+              </FormControl>
+            )}
+          />
+        </section>
 
         <SubmitButton isLoading={isSubmitting}>
           {user ? "EDIT CLIENT DETAILS" : "REGISTER CLIENT"}

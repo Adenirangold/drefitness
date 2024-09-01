@@ -101,19 +101,19 @@ export const columns: ColumnDef<AdminTable>[] = [
   //     );
   //   },
   // },
-  {
-    accessorKey: "dateOfRegistration",
-    header: " Registration Date",
-    cell: ({ row }) => {
-      const regDate = new Date(row.original.dateOfRegistration);
-      const formattedDate = regDate.toLocaleString("default", {
-        month: "long",
-        day: "2-digit",
-        year: "numeric",
-      });
-      return <p className="text-14-regular">{formattedDate}</p>;
-    },
-  },
+  // {
+  //   accessorKey: "dateOfRegistration",
+  //   header: " Registration Date",
+  //   cell: ({ row }) => {
+  //     const regDate = new Date(row.original.dateOfRegistration);
+  //     const formattedDate = regDate.toLocaleString("default", {
+  //       month: "long",
+  //       day: "2-digit",
+  //       year: "numeric",
+  //     });
+  //     return <p className="text-14-regular">{formattedDate}</p>;
+  //   },
+  // },
 
   {
     accessorKey: "Action",
