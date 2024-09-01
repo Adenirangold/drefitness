@@ -39,7 +39,7 @@ const ClientModal = ({ client }: { client: AdminTable }) => {
           </DialogDescription>
         </DialogHeader>
 
-        <ReactivateForm client={client}></ReactivateForm>
+        <ReactivateForm setOpen={setOpen} client={client}></ReactivateForm>
       </DialogContent>
     </Dialog>
   );

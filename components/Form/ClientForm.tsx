@@ -27,11 +27,14 @@ import { StatusBadge } from "../StatusBadge";
 import { registerMemberAction, updateMemberAction } from "@/lib/action";
 import { useRouter } from "next/navigation";
 import { numberOfDays } from "@/lib/utils";
+import { revalidatePath } from "next/cache";
 
 const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
   const router = useRouter();
   const { toast } = useToast();
+
   const numberOfDaysRemaining = numberOfDays(subscriptionTypes, user);
+
   const specificDefaultValue = {
     regNumber: user?.regNumber,
     name: user?.name,
@@ -100,6 +103,7 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
           description: "Updating Member Details Completed",
           className: " toast-container toast-sucess",
         });
+
         return;
       }
       const { redirect, error } = await registerMemberAction({
@@ -113,6 +117,7 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
         });
         throw new Error(error);
       }
+
       router.push(redirect!);
     } catch (err) {
       console.log(err);
@@ -136,8 +141,8 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
             {user && (
               <div className="ml-auto mt-7 sm:mt-0">
                 <StatusBadge
-                  status={numberOfDaysRemaining > 0 ? "true" : "false"}
-                  text={numberOfDaysRemaining > 0 ? "Active" : "Inactive"}
+                  status={numberOfDaysRemaining! > 0 ? "true" : "false"}
+                  text={numberOfDaysRemaining! > 0 ? "Active" : "Inactive"}
                 ></StatusBadge>
               </div>
             )}
@@ -332,70 +337,72 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
             placeholder="Asthma,HBP"
           />
         </section>
-        <section className="space-y-6">
-          <div className="mb-9 space-y-1">
-            <h2 className="sub-header">Membership Details</h2>
-          </div>
+        {!user && (
+          <section className="space-y-6">
+            <div className="mb-9 space-y-1">
+              <h2 className="sub-header">Membership Details</h2>
+            </div>
 
-          <CustomFormField
-            fieldType={FormFieldType.SELECT}
-            control={form.control}
-            name="typeOfSubscription"
-            label="Type of subscription*"
-            placeholder="Choose Subscription"
-          >
-            {subscriptionTypes.map((type, i) => (
-              <SelectItem key={i} value={type.name}>
-                {type.name}
-              </SelectItem>
-            ))}
-          </CustomFormField>
+            <CustomFormField
+              fieldType={FormFieldType.SELECT}
+              control={form.control}
+              name="typeOfSubscription"
+              label="Type of subscription*"
+              placeholder="Choose Subscription"
+            >
+              {subscriptionTypes.map((type, i) => (
+                <SelectItem key={i} value={type.name}>
+                  {type.name}
+                </SelectItem>
+              ))}
+            </CustomFormField>
 
-          <div className="flex flex-col gap-6 xl:flex-row">
+            <div className="flex flex-col gap-6 xl:flex-row">
+              <CustomFormField
+                fieldType={FormFieldType.DATE_PICKER}
+                control={form.control}
+                name="dateOfRegistration"
+                label="Registration date*"
+                placeholder="mm/dd/yyyy"
+              />
+              <CustomFormField
+                fieldType={FormFieldType.DATE_PICKER}
+                control={form.control}
+                name="subscriptionStartingDate"
+                label="Subscribtion date*"
+                placeholder="mm/dd/yyyy"
+              />
+            </div>
             <CustomFormField
-              fieldType={FormFieldType.DATE_PICKER}
+              fieldType={FormFieldType.SKELETON}
               control={form.control}
-              name="dateOfRegistration"
-              label="Registration date*"
-              placeholder="mm/dd/yyyy"
+              name="paymentConfirmed"
+              label="Payment confirmed*"
+              renderSkeleton={(field) => (
+                <FormControl>
+                  <RadioGroup
+                    className="flex h-11 gap-6 xl:justify-between"
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <div className="radio-group">
+                      <RadioGroupItem value="true" id="true" />
+                      <Label htmlFor="true" className="cursor-pointer">
+                        Yes
+                      </Label>
+                    </div>
+                    <div className="radio-group">
+                      <RadioGroupItem value="false" id="false" />
+                      <Label htmlFor="false" className="cursor-pointer">
+                        No
+                      </Label>
+                    </div>
+                  </RadioGroup>
+                </FormControl>
+              )}
             />
-            <CustomFormField
-              fieldType={FormFieldType.DATE_PICKER}
-              control={form.control}
-              name="subscriptionStartingDate"
-              label="Subscribtion date*"
-              placeholder="mm/dd/yyyy"
-            />
-          </div>
-          <CustomFormField
-            fieldType={FormFieldType.SKELETON}
-            control={form.control}
-            name="paymentConfirmed"
-            label="Payment confirmed*"
-            renderSkeleton={(field) => (
-              <FormControl>
-                <RadioGroup
-                  className="flex h-11 gap-6 xl:justify-between"
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <div className="radio-group">
-                    <RadioGroupItem value="true" id="true" />
-                    <Label htmlFor="true" className="cursor-pointer">
-                      Yes
-                    </Label>
-                  </div>
-                  <div className="radio-group">
-                    <RadioGroupItem value="false" id="false" />
-                    <Label htmlFor="false" className="cursor-pointer">
-                      No
-                    </Label>
-                  </div>
-                </RadioGroup>
-              </FormControl>
-            )}
-          />
-        </section>
+          </section>
+        )}
 
         <SubmitButton isLoading={isSubmitting}>
           {user ? "EDIT CLIENT DETAILS" : "REGISTER CLIENT"}

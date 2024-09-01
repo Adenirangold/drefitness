@@ -2,6 +2,7 @@
 import Member from "@/model/member";
 
 import { connectToDb } from "@/utils/database";
+import { revalidatePath } from "next/cache";
 
 export const registerMemberAction = async ({
   regNumber,
@@ -45,7 +46,7 @@ export const registerMemberAction = async ({
       subscriptionStartingDate,
       paymentConfirmed,
     });
-    console.log(memberData);
+
     return { redirect: "/admin" };
   } catch (err: any) {
     if (err.code === 11000) {
@@ -94,7 +95,7 @@ export const updateMemberAction = async ({
           "Member not found. Please ensure the registration number is correct.",
       };
     }
-
+    revalidatePath("/admin");
     return { redirect: "/admin" };
   } catch (err) {
     return {

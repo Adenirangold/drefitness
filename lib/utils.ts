@@ -18,6 +18,9 @@ export async function compare(data: any, hashedData: any) {
 
 export const numberOfDays = (subscriptionTypes: any, memberData: any) => {
   const currentDate = new Date();
+  if (!memberData) {
+    return null;
+  }
   const subscriptionType = subscriptionTypes.find(
     (type: any) => type.name === memberData.typeOfSubscription
   );

@@ -30,7 +30,7 @@ function PasscodeModal() {
         throw new Error("Passcode verification failed");
       }
       const expirationTime = new Date();
-      expirationTime.setTime(expirationTime.getTime() + 60 * 60 * 1000);
+      expirationTime.setTime(expirationTime.getTime() + 24 * 60 * 60 * 1000);
       document.cookie = `admin=${hashedPasscode}; path=/; secure; expires=${expirationTime.toUTCString()};  samesite=strict;`;
 
       router.push("/admin");

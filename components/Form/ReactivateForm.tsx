@@ -14,17 +14,19 @@ import "react-datepicker/dist/react-datepicker.css";
 import { registerFormValidation } from "@/lib/validation";
 
 import CustomFormField, { FormFieldType } from "../CustomFormField";
-import {
-  clientDefaultValue,
-  genderOptions,
-  maritalStatus,
-  RegisterDefaultValue,
-  subscriptionTypes,
-} from "@/constants";
-import { Button } from "../ui/button";
-import SubmitButton from "../SubmitButton";
+import { RegisterDefaultValue, subscriptionTypes } from "@/constants";
 
-const ReactivateForm = ({ client }: { client: RegisterSchemaTypes }) => {
+import SubmitButton from "../SubmitButton";
+import { updateMemberAction } from "@/lib/action";
+import { toast } from "@/hooks/use-toast";
+
+const ReactivateForm = ({
+  client,
+  setOpen,
+}: {
+  client: RegisterSchemaTypes;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const form = useForm<z.infer<typeof registerFormValidation>>({
     resolver: zodResolver(registerFormValidation),
     defaultValues: {
@@ -35,7 +37,29 @@ const ReactivateForm = ({ client }: { client: RegisterSchemaTypes }) => {
   });
 
   const onSubmit = async (values: z.infer<typeof registerFormValidation>) => {
+    const input = {
+      regNumber: values.regNumber,
+      name: values.name,
+      subscriptionStartingDate: values.subscriptionStartingDate,
+      typeOfSubscription: values.typeOfSubscription,
+      paymentConfirmed: values.paymentConfirmed,
+    };
     console.log(values);
+    const { error } = await updateMemberAction({ ...input });
+
+    if (error) {
+      toast({
+        title: "Error Occured",
+        description: error,
+        className: " toast-container toast-error",
+      });
+    }
+    toast({
+      title: "Sucess",
+      description: "Updating Member Details Completed",
+      className: " toast-container toast-sucess",
+    });
+    setOpen(false);
   };
 
   return (
