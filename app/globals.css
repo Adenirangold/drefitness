@@ -348,3 +348,13 @@
 .toast-sucess {
   @apply bg-green-800;
 }
+
+.spinner {
+  margin: 3.2rem auto 1.6rem;
+  width: 60px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 8px solid theme("colors.blue.500");
+  border-right-color: theme("colors.blue.500");
+  animation: rotate 1s infinite linear;
+}
