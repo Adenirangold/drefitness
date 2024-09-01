@@ -1,22 +1,4 @@
 interface UserSchemaTypes {
-  // regNumber: string;
-  // name: string;
-  // age: sting;
-  // email: string;
-  // gender: string;
-  // marital: string;
-  // address: string;
-  // phoneNumber: string;
-  // medicalClearance: string;
-  // currentHealthIssue: string;
-  // nextOfKin: string;
-  // nextOfKinPhoneNumber: string;
-  // currentWeight: string;
-  // currentHeight: string;
-  // dateOfRegistration: Date;
-  // subscriptionStartingDate: Date;
-  // typeOfSubscription: string;
-  // paymentConfirmed: string;
   regNumber: string;
   name: string;
   age?: string;
@@ -37,16 +19,24 @@ interface UserSchemaTypes {
   paymentConfirmed: "true" | "false";
 }
 
+interface RegisterSchemaTypes {
+  regNumber: string;
+  name: string;
+  typeOfSubscription: string;
+  subscriptionStartingDate: Date;
+  paymentConfirmed: "true" | "false";
+}
+
 interface AdminTable {
   regNumber: string;
   name: string;
   phoneNumber: string;
   typeOfSubscription: string;
   subscriptionActive: boolean;
-  paymentConfirmed: boolean;
+  paymentConfirmed: "true" | "false";
   numberOfDaysRemaining: number;
   subscriptionStartingDate: Date;
   dateOfRegistration: Date;
 }
 
-declare type Status = boolean;
+declare type Status = "true" | "false";

@@ -24,7 +24,7 @@ export const registerMemberAction = async ({
   paymentConfirmed,
 }: UserSchemaTypes) => {
   try {
-    connectToDb();
+    await connectToDb();
     const memberData = await Member.create({
       regNumber,
       name,
@@ -47,8 +47,73 @@ export const registerMemberAction = async ({
     });
     console.log(memberData);
     return { redirect: "/admin" };
+  } catch (err: any) {
+    if (err.code === 11000) {
+      return {
+        error:
+          "Registration number already exists. Please use a different number.",
+      };
+    }
+    return {
+      error:
+        "Failed to create a new member. Please ensure all fields are filled correctly and try again.",
+    };
+  }
+};
+
+export const getMembers = async () => {
+  try {
+    await connectToDb();
+
+    const members = await Member.find();
+    if (!members) {
+      throw new Error();
+    }
+
+    return { data: members };
   } catch (err) {
-    console.log("error in Creating Member");
-    return { error: "An error occurred while creating the Member." };
+    return { error: "Internal Service Error" };
+  }
+};
+export const updateMemberAction = async ({
+  regNumber,
+  ...updateData
+}: Partial<UserSchemaTypes> & { regNumber: string }) => {
+  try {
+    await connectToDb();
+
+    const updatedMember = await Member.findOneAndUpdate(
+      { regNumber },
+      updateData,
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedMember) {
+      return {
+        error:
+          "Member not found. Please ensure the registration number is correct.",
+      };
+    }
+
+    return { redirect: "/admin" };
+  } catch (err) {
+    return {
+      error:
+        "Failed to update the member. Please check the details and try again.",
+    };
+  }
+};
+
+export const getMember = async (regNumber: string) => {
+  try {
+    await connectToDb();
+    const member = await Member.findOne({ regNumber: regNumber });
+    if (!member) {
+      return { error: "No member with this regNumber" };
+    }
+
+    return { data: member };
+  } catch (err) {
+    return { error: "Internal Service Error" };
   }
 };

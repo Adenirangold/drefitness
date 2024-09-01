@@ -15,3 +15,25 @@ export async function compare(data: any, hashedData: any) {
   const match = await bcrypt.compare(data, hashedData);
   return match;
 }
+
+export const numberOfDays = (subscriptionTypes: any, memberData: any) => {
+  const currentDate = new Date();
+  const subscriptionType = subscriptionTypes.find(
+    (type: any) => type.name === memberData.typeOfSubscription
+  );
+  const subscriptionDuration = subscriptionType?.duration;
+  const subscriptionStartingDate = new Date(
+    memberData.subscriptionStartingDate
+  );
+  const expiryDate = new Date(subscriptionStartingDate);
+  expiryDate.setDate(
+    subscriptionStartingDate.getDate() + subscriptionDuration!
+  );
+
+  const numberOfDaysRemaining = Math.max(
+    0,
+    Math.ceil((+expiryDate - +currentDate) / (1000 * 60 * 60 * 24))
+  );
+
+  return numberOfDaysRemaining;
+};

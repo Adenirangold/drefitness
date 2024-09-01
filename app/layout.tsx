@@ -4,8 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
 import { cn } from "@/lib/utils";
-import Link from "next/link";
-import Image from "next/image";
+import { Toaster } from "@/components/ui/toaster";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -32,6 +31,7 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="dark">
+          <Toaster />
           {children}
         </ThemeProvider>
       </body>

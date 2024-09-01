@@ -338,3 +338,13 @@
   display: flex !important;
   align-items: center !important;
 }
+
+.toast-container {
+  @apply fixed top-5 right-5 z-50 max-w-xs w-auto p-4 text-light-200 rounded-lg shadow-lg sm:right-2 sm:max-w-full;
+}
+.toast-error {
+  @apply bg-red-800;
+}
+.toast-sucess {
+  @apply bg-green-800;
+}

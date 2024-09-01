@@ -92,6 +92,4 @@ const Member =
   mongoose.models.Member ||
   mongoose.model<UserSchemaTypes>("Member", memberSchema);
 
-console.log(mongoose.models);
-
 export default Member;

@@ -54,7 +54,7 @@ export const columns: ColumnDef<AdminTable>[] = [
         <div className="min-w-[115px]">
           <StatusBadge
             text={`${user.subscriptionActive ? "Active" : "Inactive"}`}
-            status={user.subscriptionActive}
+            status={user.subscriptionActive ? "true" : "false"}
           />
         </div>
       );
@@ -92,7 +92,9 @@ export const columns: ColumnDef<AdminTable>[] = [
       return (
         <div className="min-w-[115px]">
           <StatusBadge
-            text={`${user.paymentConfirmed ? "Confirmed" : "Unconfirmed"}`}
+            text={`${
+              user.paymentConfirmed === "true" ? "Confirmed" : "Unconfirmed"
+            }`}
             status={user.paymentConfirmed}
           />
         </div>

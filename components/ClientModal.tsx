@@ -15,7 +15,7 @@ import {
 import "react-datepicker/dist/react-datepicker.css";
 import ReactivateForm from "./Form/ReactivateForm";
 
-const ClientModal = ({ client }: { client: UserSchemaTypes }) => {
+const ClientModal = ({ client }: { client: AdminTable }) => {
   const [open, setOpen] = useState(false);
 
   return (

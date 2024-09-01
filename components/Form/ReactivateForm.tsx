@@ -24,7 +24,7 @@ import {
 import { Button } from "../ui/button";
 import SubmitButton from "../SubmitButton";
 
-const ReactivateForm = ({ client }: { client: UserSchemaTypes }) => {
+const ReactivateForm = ({ client }: { client: RegisterSchemaTypes }) => {
   const form = useForm<z.infer<typeof registerFormValidation>>({
     resolver: zodResolver(registerFormValidation),
     defaultValues: {

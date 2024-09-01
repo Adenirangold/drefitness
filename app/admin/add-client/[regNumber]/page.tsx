@@ -1,13 +1,51 @@
 import ClientForm from "@/components/Form/ClientForm";
-import UserDetailsCard from "@/components/UserDetailsCard";
-import { users } from "@/constants";
+import { getMember } from "@/lib/action";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-function page({ params }: { params: any }) {
-  const user = users.find((user) => user.regNumber === params.userId);
-  // console.log(user);
+async function page({ params }: { params: any }) {
+  const { data } = await getMember(params.regNumber);
+  const {
+    regNumber,
+    name,
+    age,
+    email,
+    gender,
+    marital,
+    address,
+    phoneNumber,
+    medicalClearance,
+    currentHealthIssue,
+    nextOfKin,
+    nextOfKinPhoneNumber,
+    currentWeight,
+    currentHeight,
+    typeOfSubscription,
+    dateOfRegistration,
+    subscriptionStartingDate,
+    paymentConfirmed,
+  } = data;
+  const user = {
+    regNumber,
+    name,
+    age,
+    email,
+    gender,
+    marital,
+    address,
+    phoneNumber,
+    medicalClearance,
+    currentHealthIssue,
+    nextOfKin,
+    nextOfKinPhoneNumber,
+    currentWeight,
+    currentHeight,
+    typeOfSubscription,
+    dateOfRegistration,
+    subscriptionStartingDate,
+    paymentConfirmed,
+  };
 
   return (
     <div className="flex h-screen max-h-screen  ">

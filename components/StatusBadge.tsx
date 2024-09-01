@@ -11,13 +11,13 @@ export const StatusBadge = ({
   return (
     <div
       className={clsx("status-badge", {
-        "bg-green-600": status === true,
-        "bg-red-600": status === false,
+        "bg-green-600": status === "true",
+        "bg-red-600": status === "false",
       })}
     >
       <Image
         src={
-          status === true
+          status === "true"
             ? "/assets/icons/check.svg"
             : "/assets/icons/cancelled.svg"
         }
@@ -28,8 +28,8 @@ export const StatusBadge = ({
       />
       <p
         className={clsx("text-14-medium capitalize", {
-          "text-green-500": status === true,
-          "text-red-500": status === false,
+          "text-green-500": status === "true",
+          "text-red-500": status === "false",
         })}
       >
         {text}

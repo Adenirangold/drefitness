@@ -9,6 +9,7 @@ import { Form, FormControl } from "@/components/ui/form";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { SelectItem } from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
 
 import "react-datepicker/dist/react-datepicker.css";
 import { clientFormValidation } from "@/lib/validation";
@@ -23,11 +24,14 @@ import {
 import { Button } from "../ui/button";
 import SubmitButton from "../SubmitButton";
 import { StatusBadge } from "../StatusBadge";
-import { registerMemberAction } from "@/lib/action";
+import { registerMemberAction, updateMemberAction } from "@/lib/action";
 import { useRouter } from "next/navigation";
+import { numberOfDays } from "@/lib/utils";
 
 const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
   const router = useRouter();
+  const { toast } = useToast();
+  const numberOfDaysRemaining = numberOfDays(subscriptionTypes, user);
   const specificDefaultValue = {
     regNumber: user?.regNumber,
     name: user?.name,
@@ -57,50 +61,56 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
     },
   });
 
+  const { isSubmitting } = form.formState;
+
   const onSubmit = async (values: z.infer<typeof clientFormValidation>) => {
-    console.log(values);
-    const {
-      regNumber,
-      name,
-      age,
-      email,
-      gender,
-      marital,
-      address,
-      phoneNumber,
-      medicalClearance,
-      currentHealthIssue,
-      nextOfKin,
-      nextOfKinPhoneNumber,
-      currentWeight,
-      currentHeight,
-      typeOfSubscription,
-      dateOfRegistration,
-      subscriptionStartingDate,
-      paymentConfirmed,
-    } = values;
+    const input = {
+      regNumber: values.regNumber,
+      name: values.name,
+      age: values.age,
+      email: values.email,
+      gender: values.gender,
+      marital: values.marital,
+      address: values.address,
+      phoneNumber: values.phoneNumber,
+      medicalClearance: values.medicalClearance,
+      currentHealthIssue: values.currentHealthIssue,
+      nextOfKin: values.nextOfKin,
+      nextOfKinPhoneNumber: values.nextOfKinPhoneNumber,
+      currentWeight: values.currentWeight,
+      currentHeight: values.currentHeight,
+      typeOfSubscription: values.typeOfSubscription,
+      dateOfRegistration: values.dateOfRegistration,
+      subscriptionStartingDate: values.subscriptionStartingDate,
+      paymentConfirmed: values.paymentConfirmed,
+    };
     try {
+      if (user) {
+        const { error } = await updateMemberAction({ ...input });
+
+        if (error) {
+          toast({
+            title: "Error Occured",
+            description: error,
+            className: " toast-container toast-error",
+          });
+        }
+        toast({
+          title: "Sucess",
+          description: "Updating Member Details Completed",
+          className: " toast-container toast-sucess",
+        });
+        return;
+      }
       const { redirect, error } = await registerMemberAction({
-        regNumber,
-        name,
-        age,
-        email,
-        gender,
-        marital,
-        address,
-        phoneNumber,
-        medicalClearance,
-        currentHealthIssue,
-        nextOfKin,
-        nextOfKinPhoneNumber,
-        currentWeight,
-        currentHeight,
-        typeOfSubscription,
-        dateOfRegistration,
-        subscriptionStartingDate,
-        paymentConfirmed,
+        ...input,
       });
       if (error) {
+        toast({
+          title: "Error Occured",
+          description: error,
+          className: " toast-container toast-error",
+        });
         throw new Error(error);
       }
       router.push(redirect!);
@@ -125,7 +135,10 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
             </div>
             {user && (
               <div className="ml-auto mt-7 sm:mt-0">
-                <StatusBadge status={true} text="active"></StatusBadge>
+                <StatusBadge
+                  status={numberOfDaysRemaining > 0 ? "true" : "false"}
+                  text={numberOfDaysRemaining > 0 ? "Active" : "Inactive"}
+                ></StatusBadge>
               </div>
             )}
           </div>
@@ -141,6 +154,7 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
             control={form.control}
             name="regNumber"
             placeholder="001"
+            disabled={user ? true : false}
             label="Registration Number*"
           />
           <CustomFormField
@@ -383,7 +397,7 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
           />
         </section>
 
-        <SubmitButton>
+        <SubmitButton isLoading={isSubmitting}>
           {user ? "EDIT CLIENT DETAILS" : "REGISTER CLIENT"}
         </SubmitButton>
       </form>
