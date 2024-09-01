@@ -38,7 +38,7 @@ async function AdminPage() {
             name: member.name,
             phoneNumber: member.phoneNumber,
             typeOfSubscription: member.typeOfSubscription,
-            subscriptionActive: numberOfDaysRemaining > 0,
+            subscriptionActive: numberOfDaysRemaining! > 0,
             paymentConfirmed: member.paymentConfirmed,
             dateOfRegistration: new Date(member.dateOfRegistration),
             numberOfDaysRemaining,
