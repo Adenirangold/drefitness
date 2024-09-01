@@ -9,21 +9,21 @@ export const columns: ColumnDef<AdminTable>[] = [
   {
     header: "No",
     cell: ({ row }) => {
-      return <p className="text-14-medium">{row.index + 1}</p>;
+      return <p className="text-14-regular">{row.index + 1}</p>;
     },
   },
   {
     accessorKey: "regNumber",
     header: "Registration Number",
     cell: ({ row }) => {
-      return <p className="text-14-medium">{row.original.regNumber}</p>;
+      return <p className="text-14-regular">{row.original.regNumber}</p>;
     },
   },
   {
     accessorKey: "name",
     header: "Full Name",
     cell: ({ row }) => {
-      return <p className="text-14-medium">{row.original.name}</p>;
+      return <p className="text-14-regular">{row.original.name}</p>;
     },
   },
 
@@ -31,7 +31,7 @@ export const columns: ColumnDef<AdminTable>[] = [
     accessorKey: "phoneNumber",
     header: "Phone Number",
     cell: ({ row }) => {
-      return <p className="text-14-medium ">{row.original.phoneNumber}</p>;
+      return <p className="text-14-regular ">{row.original.phoneNumber}</p>;
     },
   },
   {
@@ -39,7 +39,7 @@ export const columns: ColumnDef<AdminTable>[] = [
     header: "Gym Subscription",
     cell: ({ row }) => {
       return (
-        <p className="text-14-medium ">{row.original.typeOfSubscription}</p>
+        <p className="text-14-regular">{row.original.typeOfSubscription}</p>
       );
     },
   },
@@ -65,7 +65,7 @@ export const columns: ColumnDef<AdminTable>[] = [
     header: "Days Left",
     cell: ({ row }) => {
       return (
-        <p className="text-14-medium ">{row.original.numberOfDaysRemaining}</p>
+        <p className="text-14-regular">{row.original.numberOfDaysRemaining}</p>
       );
     },
   },
@@ -80,27 +80,27 @@ export const columns: ColumnDef<AdminTable>[] = [
         day: "2-digit",
         year: "numeric",
       });
-      return <p className="text-14-medium">{formattedDate}</p>;
+      return <p className="text-14-regular">{formattedDate}</p>;
     },
   },
-  {
-    accessorKey: "paymentConfirmed",
-    header: "Payment Confirmed",
-    cell: ({ row }) => {
-      const user = row.original;
+  // {
+  //   accessorKey: "paymentConfirmed",
+  //   header: "Payment Confirmed",
+  //   cell: ({ row }) => {
+  //     const user = row.original;
 
-      return (
-        <div className="min-w-[115px]">
-          <StatusBadge
-            text={`${
-              user.paymentConfirmed === "true" ? "Confirmed" : "Unconfirmed"
-            }`}
-            status={user.paymentConfirmed}
-          />
-        </div>
-      );
-    },
-  },
+  //     return (
+  //       <div className="min-w-[115px]">
+  //         <StatusBadge
+  //           text={`${
+  //             user.paymentConfirmed === "true" ? "Confirmed" : "Unconfirmed"
+  //           }`}
+  //           status={user.paymentConfirmed}
+  //         />
+  //       </div>
+  //     );
+  //   },
+  // },
   {
     accessorKey: "dateOfRegistration",
     header: " Registration Date",
@@ -111,7 +111,7 @@ export const columns: ColumnDef<AdminTable>[] = [
         day: "2-digit",
         year: "numeric",
       });
-      return <p className="text-14-medium">{formattedDate}</p>;
+      return <p className="text-14-regular">{formattedDate}</p>;
     },
   },
 
@@ -122,7 +122,7 @@ export const columns: ColumnDef<AdminTable>[] = [
       const client = row.original;
 
       return (
-        <div className="flex gap-4">
+        <div className="flex gap-3">
           <ClientModal client={client}></ClientModal>
           <DetailsButton client={client}></DetailsButton>
         </div>
