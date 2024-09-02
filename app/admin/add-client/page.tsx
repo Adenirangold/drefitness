@@ -26,7 +26,7 @@ function page() {
         height={1000}
         width={1000}
         alt="patient"
-        className="side-img max-w-[600px]  "
+        className="side-img max-w-[40vw]  "
       />
     </div>
   );

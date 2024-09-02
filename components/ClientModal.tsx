@@ -23,7 +23,7 @@ const ClientModal = ({ client }: { client: AdminTable }) => {
       <DialogTrigger asChild>
         <Button
           variant="ghost"
-          className="capitalize border-2 border-blue-600 shadow-lg text-light-200"
+          className="capitalize  border-2 border-blue-600 shadow-lg text-light-200"
         >
           REACTIVATE
         </Button>

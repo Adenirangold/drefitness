@@ -62,7 +62,7 @@ export const columns: ColumnDef<AdminTable>[] = [
   },
   {
     accessorKey: "numberOfDaysRemaining",
-    header: "Days Left",
+    header: "Days",
     cell: ({ row }) => {
       return (
         <p className="text-14-regular">{row.original.numberOfDaysRemaining}</p>

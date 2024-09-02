@@ -1,8 +1,9 @@
 import ClientForm from "@/components/Form/ClientForm";
+import Spinner from "@/components/Spinner";
 import { getMember } from "@/lib/action";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { Suspense } from "react";
 
 async function page({ params }: { params: any }) {
   const { data } = await getMember(params.regNumber);
@@ -60,7 +61,9 @@ async function page({ params }: { params: any }) {
               className="mb-12 h-12 w-fit"
             />
           </Link>
-          <ClientForm user={user}></ClientForm>
+          <Suspense fallback={<Spinner></Spinner>}>
+            <ClientForm user={user}></ClientForm>
+          </Suspense>
           <p className="copyright py-12">© 2024 Drefitness</p>
         </div>
       </section>
@@ -69,7 +72,7 @@ async function page({ params }: { params: any }) {
         height={1000}
         width={1000}
         alt="patient"
-        className="side-img max-w-[600px]"
+        className="side-img max-w-[40vw]"
       />
     </div>
   );

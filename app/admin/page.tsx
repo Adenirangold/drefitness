@@ -58,7 +58,7 @@ async function AdminPage() {
           <Image
             src="/assets/images/fitness-logo.png"
             height={32}
-            width={162}
+            width={32}
             alt="logo"
             className="h-12 w-fit"
           />
