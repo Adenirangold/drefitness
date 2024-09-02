@@ -69,7 +69,7 @@ async function page({ params }: { params: any }) {
         height={1000}
         width={1000}
         alt="patient"
-        className="side-img max-w-[800px]"
+        className="side-img max-w-[600px]"
       />
     </div>
   );

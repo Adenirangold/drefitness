@@ -46,6 +46,7 @@ export const registerMemberAction = async ({
       subscriptionStartingDate,
       paymentConfirmed,
     });
+    revalidatePath("/admin");
 
     return { redirect: "/admin" };
   } catch (err: any) {

@@ -100,7 +100,7 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
         }
         toast({
           title: "Sucess",
-          description: "Updating Member Details Completed",
+          description: "Updated Member Details Sucessfully",
           className: " toast-container toast-sucess",
         });
 
@@ -117,7 +117,11 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
         });
         throw new Error(error);
       }
-
+      toast({
+        title: "Sucess",
+        description: "Member created sucessfully",
+        className: " toast-container toast-sucess",
+      });
       router.push(redirect!);
     } catch (err) {
       console.log(err);

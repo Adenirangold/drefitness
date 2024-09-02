@@ -14,29 +14,29 @@ export const columns: ColumnDef<AdminTable>[] = [
   },
   {
     accessorKey: "regNumber",
-    header: "Registration Number",
+    header: "Reg",
     cell: ({ row }) => {
       return <p className="text-14-regular">{row.original.regNumber}</p>;
     },
   },
   {
     accessorKey: "name",
-    header: "Full Name",
+    header: "Name",
     cell: ({ row }) => {
-      return <p className="text-14-regular">{row.original.name}</p>;
+      return <p className="text-14-regular mr-10">{row.original.name}</p>;
     },
   },
 
   {
     accessorKey: "phoneNumber",
-    header: "Phone Number",
+    header: "Phone",
     cell: ({ row }) => {
       return <p className="text-14-regular ">{row.original.phoneNumber}</p>;
     },
   },
   {
     accessorKey: "typeOfSubscription",
-    header: "Gym Subscription",
+    header: "Gym-Sub",
     cell: ({ row }) => {
       return (
         <p className="text-14-regular">{row.original.typeOfSubscription}</p>
@@ -46,7 +46,7 @@ export const columns: ColumnDef<AdminTable>[] = [
   {
     accessorKey: "subscriptionActive",
 
-    header: "Subscription Active",
+    header: "Sub-Active",
     cell: ({ row }) => {
       const user = row.original;
 
@@ -72,35 +72,33 @@ export const columns: ColumnDef<AdminTable>[] = [
 
   {
     accessorKey: "subscriptionStartingDate",
-    header: " Sub-Start Date",
+    header: " Start-Date",
     cell: ({ row }) => {
       const regDate = new Date(row.original.subscriptionStartingDate);
       const formattedDate = regDate.toLocaleString("default", {
-        month: "long",
+        month: "short",
         day: "2-digit",
         year: "numeric",
       });
       return <p className="text-14-regular">{formattedDate}</p>;
     },
   },
-  // {
-  //   accessorKey: "paymentConfirmed",
-  //   header: "Payment Confirmed",
-  //   cell: ({ row }) => {
-  //     const user = row.original;
+  {
+    accessorKey: "paymentConfirmed",
+    header: "Payment",
+    cell: ({ row }) => {
+      const user = row.original;
 
-  //     return (
-  //       <div className="min-w-[115px]">
-  //         <StatusBadge
-  //           text={`${
-  //             user.paymentConfirmed === "true" ? "Confirmed" : "Unconfirmed"
-  //           }`}
-  //           status={user.paymentConfirmed}
-  //         />
-  //       </div>
-  //     );
-  //   },
-  // },
+      return (
+        <div className="min-w-[115px]">
+          <StatusBadge
+            text={`${user.paymentConfirmed === "true" ? "Paid" : "Unpaid"}`}
+            status={user.paymentConfirmed}
+          />
+        </div>
+      );
+    },
+  },
   // {
   //   accessorKey: "dateOfRegistration",
   //   header: " Registration Date",

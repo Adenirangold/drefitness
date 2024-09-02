@@ -250,7 +250,7 @@
   }
 
   .shad-table-row {
-    @apply border-b border-dark-400 text-light-200 !important;
+    @apply border-b border-dark-400 text-light-200  !important;
   }
 
   .shad-otp-slot {
@@ -354,7 +354,13 @@
   width: 60px;
   aspect-ratio: 1;
   border-radius: 50%;
-  border: 8px solid theme("colors.blue.500");
-  border-right-color: theme("colors.blue.500");
+  border: 8px solid theme("colors.blue.600");
+  border-right-color: theme("colors.blue.400");
   animation: rotate 1s infinite linear;
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(1turn);
+  }
 }
