@@ -46,7 +46,7 @@ export const columns: ColumnDef<AdminTable>[] = [
   {
     accessorKey: "subscriptionActive",
 
-    header: "Sub-Active",
+    header: "Status",
     cell: ({ row }) => {
       const user = row.original;
 
