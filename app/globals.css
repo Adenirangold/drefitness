@@ -117,7 +117,7 @@
 
   /* ==== Stat Card */
   .stat-card {
-    @apply flex flex-1 flex-col gap-6 rounded-2xl bg-cover p-6 shadow-lg;
+    @apply flex flex-1 flex-col gap-6 rounded-2xl bg-cover p-4 shadow-lg;
   }
 
   /* ==== Status Badge */

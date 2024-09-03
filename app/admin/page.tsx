@@ -69,7 +69,7 @@ async function AdminPage() {
           <div className="flex flex-col sm:flex-row sm:items-center">
             <div className="space-y-4 sm:mr-auto">
               <h1 className="header">Welcome Admin 👋</h1>
-              <p className="text-dark-700">
+              <p className="text-dark-700 ">
                 Start the day with managing clients information
               </p>
               <StartCard></StartCard>
