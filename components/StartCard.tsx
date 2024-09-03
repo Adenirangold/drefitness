@@ -8,7 +8,7 @@ async function StartCard() {
   const allMembers = numberActive + numberInactive;
 
   return (
-    <div className="stat-card flex-row">
+    <div className="stat-card flex-row ">
       <div className="flex gap-4 items-center">
         <h2 className="text-25-bold  text-blue-500">{allMembers}</h2>
         <p className="text-14-regular">Registered Member</p>

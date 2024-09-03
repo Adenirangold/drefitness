@@ -74,7 +74,7 @@ async function AdminPage() {
               </p>
               <StartCard></StartCard>
             </div>
-            <div className="mt-4 sm:mt-0">
+            <div className="my-10 sm:mt-0">
               <AddClientButton />
             </div>
           </div>
