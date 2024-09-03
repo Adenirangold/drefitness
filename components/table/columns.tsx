@@ -4,6 +4,8 @@ import { ColumnDef } from "@tanstack/react-table";
 import { StatusBadge } from "../StatusBadge";
 import ClientModal from "../ClientModal";
 import DetailsButton from "../DetailsButton";
+import { ArrowUpDown } from "lucide-react";
+import { Button } from "../ui/button";
 
 export const columns: ColumnDef<AdminTable>[] = [
   {
@@ -46,7 +48,17 @@ export const columns: ColumnDef<AdminTable>[] = [
   {
     accessorKey: "subscriptionActive",
 
-    header: "Status",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Status
+          <ArrowUpDown className="ml-2 h-4 w-4 text-blue-500" />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       const user = row.original;
 

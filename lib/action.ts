@@ -3,6 +3,8 @@ import Member from "@/model/member";
 
 import { connectToDb } from "@/utils/database";
 import { revalidatePath } from "next/cache";
+import { numberOfDays } from "./utils";
+import { subscriptionTypes } from "@/constants";
 
 export const registerMemberAction = async ({
   regNumber,
@@ -67,7 +69,7 @@ export const getMembers = async () => {
   try {
     await connectToDb();
 
-    const members = await Member.find();
+    const members = await Member.find().sort({ dateOfRegistration: -1 });
     if (!members) {
       throw new Error();
     }
@@ -77,6 +79,7 @@ export const getMembers = async () => {
     return { error: "Internal Service Error" };
   }
 };
+
 export const updateMemberAction = async ({
   regNumber,
   ...updateData
@@ -115,6 +118,33 @@ export const getMember = async (regNumber: string) => {
     }
 
     return { data: member };
+  } catch (err) {
+    return { error: "Internal Service Error" };
+  }
+};
+
+export const filteredMembers = async () => {
+  try {
+    await connectToDb();
+
+    const members = await Member.find();
+    if (!members) {
+      throw new Error();
+    }
+
+    const activeMembers: any = [];
+    const inactiveMembers: any = [];
+
+    members.forEach((member) => {
+      const daysLeft = numberOfDays(subscriptionTypes, member);
+      if (daysLeft! > 0) {
+        activeMembers.push(member);
+      } else {
+        inactiveMembers.push(member);
+      }
+    });
+
+    return { active: activeMembers, inactive: inactiveMembers };
   } catch (err) {
     return { error: "Internal Service Error" };
   }

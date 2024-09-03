@@ -1,4 +1,5 @@
 import AddClientButton from "@/components/AddClientButton";
+import StartCard from "@/components/StartCard";
 import SubmitButton from "@/components/SubmitButton";
 import { columns } from "@/components/table/columns";
 import DataTable from "@/components/table/DataTable";
@@ -10,11 +11,12 @@ import Link from "next/link";
 import React from "react";
 
 async function AdminPage() {
-  const currentDate = new Date();
   let data: any[] = [];
+  // console.log(new Date(Date.now()));
 
   try {
     const members = await getMembers();
+
     if (members.error) {
       console.error("Error fetching members:", members.error);
       return (
@@ -27,10 +29,6 @@ async function AdminPage() {
     if (members.data) {
       data = members.data
         .map((member) => {
-          const subscriptionType = subscriptionTypes.find(
-            (type) => type.name === member.typeOfSubscription
-          );
-
           const numberOfDaysRemaining = numberOfDays(subscriptionTypes, member);
 
           return {
@@ -46,6 +44,8 @@ async function AdminPage() {
           };
         })
         .filter((item) => item !== null);
+
+      // console.log(data);
     }
   } catch (error) {
     console.error("Error fetching or processing data:", error);
@@ -72,6 +72,7 @@ async function AdminPage() {
               <p className="text-dark-700">
                 Start the day with managing clients information
               </p>
+              <StartCard></StartCard>
             </div>
             <div className="mt-4 sm:mt-0">
               <AddClientButton />

@@ -155,6 +155,12 @@
   .text-32-bold {
     @apply text-[32px] leading-[36px] font-bold;
   }
+  .text-25-bold {
+    @apply text-[25px] leading-[29px] font-bold;
+  }
+  .text-32-bold {
+    @apply text-[32px] leading-[36px] font-bold;
+  }
 
   .text-18-bold {
     @apply text-[18px] leading-[24px] font-bold;
