@@ -6,6 +6,7 @@ const memberSchema = new mongoose.Schema({
     type: String,
     required: [true, "Registration number is required"],
     unique: true,
+    trim: true,
   },
   name: {
     type: String,

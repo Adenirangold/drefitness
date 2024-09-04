@@ -385,12 +385,12 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
             control={form.control}
             name="paymentConfirmed"
             label="Payment confirmed*"
-            disabled={user ? true : false}
             renderSkeleton={(field) => (
               <FormControl>
                 <RadioGroup
                   className="flex h-11 gap-6 xl:justify-between"
                   onValueChange={field.onChange}
+                  disabled={user ? true : false}
                   defaultValue={field.value}
                 >
                   <div className="radio-group">

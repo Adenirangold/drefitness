@@ -12,7 +12,6 @@ function DetailsButton({ client }: { client: AdminTable }) {
       onClick={() => {
         setLoading(true);
         router.push(`/admin/add-client/${client.regNumber}`);
-        setLoading(false);
       }}
       variant="ghost"
       className="capitalize border-2 border-blue-600  shadow-lg text-light-200"

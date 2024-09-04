@@ -1,6 +1,11 @@
 import { z } from "zod";
 export const clientFormValidation = z.object({
-  regNumber: z.string().min(1, "Registration number is required"),
+  regNumber: z
+    .string()
+    .regex(/^\S.*$/, {
+      message: "Registration Number cannot start with a space",
+    })
+    .min(1, "Registration number is required"),
   name: z.string().min(1, "name is required"),
   phoneNumber: z
     .string()

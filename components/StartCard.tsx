@@ -1,5 +1,6 @@
 import { filteredMembers } from "@/lib/action";
 import React from "react";
+import Chart from "./Chart";
 
 async function StartCard() {
   const { inactive, active } = await filteredMembers();
@@ -7,9 +8,10 @@ async function StartCard() {
   const numberInactive = inactive?.length;
   const allMembers = numberActive + numberInactive;
 
+  //   stat-card flex-row
   return (
-    <div className="stat-card flex-row ">
-      <div className="flex gap-4 items-center">
+    <div>
+      {/* <div className="flex gap-4 items-center">
         <h2 className="text-25-bold  text-blue-500">{allMembers}</h2>
         <p className="capitalize text-14-regular">REGISTERED MEMBERS</p>
       </div>
@@ -20,7 +22,8 @@ async function StartCard() {
       <div className="flex gap-4 items-center">
         <h2 className="text-25-bold text-red-700">{numberInactive}</h2>
         <p className="text-14-regular">INACTIVE MEMBERS</p>
-      </div>
+      </div> */}
+      <Chart active={numberActive} inactive={numberInactive}></Chart>
     </div>
   );
 }

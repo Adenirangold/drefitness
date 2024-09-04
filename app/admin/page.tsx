@@ -12,7 +12,6 @@ import React from "react";
 
 async function AdminPage() {
   let data: any[] = [];
-  // console.log(new Date(Date.now()));
 
   try {
     const members = await getMembers();
@@ -44,8 +43,6 @@ async function AdminPage() {
           };
         })
         .filter((item) => item !== null);
-
-      // console.log(data);
     }
   } catch (error) {
     console.error("Error fetching or processing data:", error);
