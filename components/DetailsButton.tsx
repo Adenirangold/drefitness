@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { Button } from "./ui/button";
-import SpinnerMini from "./SpinnerMini";
+import Image from "next/image";
 
 function DetailsButton({ client }: { client: AdminTable }) {
   const [loading, setLoading] = useState(false);
@@ -16,7 +16,20 @@ function DetailsButton({ client }: { client: AdminTable }) {
       variant="ghost"
       className="capitalize border-2 border-blue-600  shadow-lg text-light-200"
     >
-      {loading ? <SpinnerMini></SpinnerMini> : "VIEW DETAILS"}
+      {loading ? (
+        <div className="flex items-center gap-4">
+          <Image
+            src="/assets/icons/loader.svg"
+            alt="loader"
+            width={24}
+            height={24}
+            className="animate-spin"
+          />
+          Loading...
+        </div>
+      ) : (
+        "VIEW DETAILS"
+      )}
     </Button>
   );
 }
