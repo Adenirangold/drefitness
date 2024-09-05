@@ -9,7 +9,7 @@ export const clientFormValidation = z.object({
   name: z.string().min(1, "name is required"),
   phoneNumber: z
     .string()
-    .regex(/^\d{10,15}$/, "Mobile number must be between 10 and 15 digits"),
+    .regex(/^\d{11}$/, "Mobile number must be exactly 11 digits"),
 
   email: z.string().email("Invalid email address").optional(),
   age: z.string().min(1, "age is required").optional(),
