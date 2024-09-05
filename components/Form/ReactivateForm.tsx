@@ -57,7 +57,7 @@ const ReactivateForm = ({
     }
     toast({
       title: "Success",
-      description: `${client.regNumber} subsciption has been reactivated`,
+      description: `Membership with registration number ${client.regNumber} has been reactivated.`,
       className: " toast-container toast-sucess",
     });
     setOpen(false);
