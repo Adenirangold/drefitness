@@ -99,7 +99,7 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
           });
         }
         toast({
-          title: "Sucess",
+          title: "Success",
           description: "Updated Member Details Sucessfully",
           className: " toast-container toast-sucess",
         });
@@ -118,7 +118,7 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
         throw new Error(error);
       }
       toast({
-        title: "Sucess",
+        title: "Success",
         description: "Member created sucessfully",
         className: " toast-container toast-sucess",
       });

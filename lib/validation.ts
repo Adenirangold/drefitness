@@ -19,7 +19,7 @@ export const clientFormValidation = z.object({
   nextOfKin: z.string().min(1, "Next of kin is required").optional(),
   nextOfKinPhoneNumber: z
     .string()
-    .regex(/^\d{10,15}$/, "Mobile number must be between 10 and 15 digits")
+    .regex(/^\d{11}$/, "Mobile number must be between 10 and 15 digits")
     .optional(),
 
   medicalClearance: z.enum(["true", "false"]),
