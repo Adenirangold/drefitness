@@ -30,13 +30,17 @@ async function AdminPage() {
         .map((member) => {
           const numberOfDaysRemaining = numberOfDays(subscriptionTypes, member);
 
+          const subscriptionActive = numberOfDaysRemaining! > 0;
+
           return {
             regNumber: member.regNumber,
             name: member.name,
             phoneNumber: member.phoneNumber,
             typeOfSubscription: member.typeOfSubscription,
-            subscriptionActive: numberOfDaysRemaining! > 0,
-            paymentConfirmed: member.paymentConfirmed,
+            subscriptionActive,
+            paymentConfirmed: subscriptionActive
+              ? member.paymentConfirmed
+              : "false",
             dateOfRegistration: new Date(member.dateOfRegistration),
             numberOfDaysRemaining,
             subscriptionStartingDate: new Date(member.subscriptionStartingDate),
