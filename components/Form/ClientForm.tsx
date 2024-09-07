@@ -182,7 +182,7 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
               control={form.control}
               name="phoneNumber"
               label="Phone number*"
-              placeholder="0812995892"
+              placeholder="080********"
             />
             <CustomFormField
               fieldType={FormFieldType.INPUT}
@@ -277,7 +277,7 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
               control={form.control}
               name="nextOfKinPhoneNumber"
               label="Next of kin number"
-              placeholder="0812345678"
+              placeholder="080********"
             />
           </div>
         </section>
