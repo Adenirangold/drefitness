@@ -149,3 +149,24 @@ export const filteredMembers = async () => {
     return { error: "Internal Service Error" };
   }
 };
+
+export const deleteClientAction = async (regNumber: string) => {
+  try {
+    await connectToDb();
+    const deletedMember = await Member.findOneAndDelete({
+      regNumber: regNumber,
+    });
+    if (!deletedMember) {
+      return {
+        error: `Member with registration number ${regNumber} not found.`,
+      };
+    }
+    return {
+      message: `Member with registration number ${regNumber} has been deleted successfully.`,
+    };
+  } catch (err) {
+    return {
+      error: `Something went wrong while trying to delete the member. Please try again later`,
+    };
+  }
+};

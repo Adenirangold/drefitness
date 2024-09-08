@@ -21,13 +21,12 @@ import {
   maritalStatus,
   subscriptionTypes,
 } from "@/constants";
-import { Button } from "../ui/button";
 import SubmitButton from "../SubmitButton";
 import { StatusBadge } from "../StatusBadge";
 import { registerMemberAction, updateMemberAction } from "@/lib/action";
 import { useRouter } from "next/navigation";
 import { numberOfDays } from "@/lib/utils";
-import { revalidatePath } from "next/cache";
+import DeleteClientButton from "../DeleteClientButton";
 
 const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
   const router = useRouter();
@@ -411,9 +410,23 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
           />
         </section>
 
-        <SubmitButton isLoading={isSubmitting}>
-          {user ? "EDIT CLIENT DETAILS" : "REGISTER CLIENT"}
-        </SubmitButton>
+        <div
+          className={`flex ${
+            user ? "justify-between" : "justify-center"
+          } gap-4`}
+        >
+          {user && (
+            <DeleteClientButton
+              regNumber={user?.regNumber}
+            ></DeleteClientButton>
+          )}
+          <SubmitButton
+            isLoading={isSubmitting}
+            className={`${user ? "" : "w-full"} shad-primary-btn`}
+          >
+            {user ? "EDIT CLIENT" : "REGISTER CLIENT"}
+          </SubmitButton>
+        </div>
       </form>
     </Form>
   );
