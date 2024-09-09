@@ -161,6 +161,8 @@ export const deleteClientAction = async (regNumber: string) => {
         error: `Member with registration number ${regNumber} not found.`,
       };
     }
+
+    revalidatePath("/admin");
     return {
       message: `Member with registration number ${regNumber} has been deleted successfully.`,
     };

@@ -26,7 +26,7 @@ import { StatusBadge } from "../StatusBadge";
 import { registerMemberAction, updateMemberAction } from "@/lib/action";
 import { useRouter } from "next/navigation";
 import { numberOfDays } from "@/lib/utils";
-import DeleteClientButton from "../DeleteClientButton";
+import DeleteAlertDialog from "../DeleteAlertDialog";
 
 const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
   const router = useRouter();
@@ -116,12 +116,12 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
         });
         throw new Error(error);
       }
+      router.push(redirect!);
       toast({
         title: "Success",
         description: "Member created sucessfully",
         className: " toast-container toast-sucess",
       });
-      router.push(redirect!);
     } catch (err) {
       console.log(err);
     }
@@ -416,9 +416,7 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
           } gap-4`}
         >
           {user && (
-            <DeleteClientButton
-              regNumber={user?.regNumber}
-            ></DeleteClientButton>
+            <DeleteAlertDialog regNumber={user?.regNumber}></DeleteAlertDialog>
           )}
           <SubmitButton
             isLoading={isSubmitting}
