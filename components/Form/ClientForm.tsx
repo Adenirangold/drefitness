@@ -116,12 +116,12 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
         });
         throw new Error(error);
       }
-      router.push(redirect!);
       toast({
         title: "Success",
         description: "Member created sucessfully",
         className: " toast-container toast-sucess",
       });
+      router.push(redirect!);
     } catch (err) {
       console.log(err);
     }

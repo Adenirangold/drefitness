@@ -48,7 +48,9 @@ export const registerMemberAction = async ({
       subscriptionStartingDate,
       paymentConfirmed,
     });
-    revalidatePath("/admin");
+    Promise.resolve(revalidatePath("/admin")).catch((err) => {
+      console.error("Revalidation failed: ", err);
+    });
 
     return { redirect: "/admin" };
   } catch (err: any) {
@@ -99,7 +101,9 @@ export const updateMemberAction = async ({
           "Member not found. Please ensure the registration number is correct.",
       };
     }
-    revalidatePath("/admin");
+    Promise.resolve(revalidatePath("/admin")).catch((err) => {
+      console.error("Revalidation failed: ", err);
+    });
     return { redirect: "/admin" };
   } catch (err) {
     return {
@@ -162,7 +166,9 @@ export const deleteClientAction = async (regNumber: string) => {
       };
     }
 
-    revalidatePath("/admin");
+    Promise.resolve(revalidatePath("/admin")).catch((err) => {
+      console.error("Revalidation failed: ", err);
+    });
     return {
       message: `Member with registration number ${regNumber} has been deleted successfully.`,
     };

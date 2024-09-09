@@ -33,14 +33,13 @@ function DeleteAlertDialog({ regNumber }: { regNumber: string }) {
         });
         return;
       }
-      router.push("/admin");
       toast({
         title: "Sucess",
         description: message,
         className: " toast-container toast-sucess",
       });
+      router.push("/admin");
     } catch (err) {
-      console.error("Error deleting client:", err);
       toast({
         title: "Error Occured",
         description: "Internal Server Error",
@@ -63,27 +62,32 @@ function DeleteAlertDialog({ regNumber }: { regNumber: string }) {
             member and remove the data from our servers.
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter className="gap-2">
-          <AlertDialogCancel className="shad-primary-btn">
-            CANCEL
-          </AlertDialogCancel>
-          <AlertDialogAction className="shad-danger-btn" onClick={handleDelete}>
-            {" "}
-            {!isLoading ? (
-              <div className="flex items-center ">DELETE CLIENT</div>
-            ) : (
-              <div className="flex items-center gap-4">
-                <Image
-                  src="/assets/icons/loader.svg"
-                  alt="loader"
-                  width={24}
-                  height={24}
-                  className="animate-spin"
-                />
-                Loading...
-              </div>
-            )}
-          </AlertDialogAction>
+        <AlertDialogFooter>
+          <div className="flex justify-between gap-4 items-center">
+            <AlertDialogCancel className="shad-primary-btn">
+              CANCEL
+            </AlertDialogCancel>
+            <AlertDialogAction
+              className="shad-danger-btn"
+              onClick={handleDelete}
+            >
+              {" "}
+              {!isLoading ? (
+                <div className="flex items-center ">DELETE CLIENT</div>
+              ) : (
+                <div className="flex items-center gap-4">
+                  <Image
+                    src="/assets/icons/loader.svg"
+                    alt="loader"
+                    width={24}
+                    height={24}
+                    className="animate-spin"
+                  />
+                  Loading...
+                </div>
+              )}
+            </AlertDialogAction>
+          </div>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

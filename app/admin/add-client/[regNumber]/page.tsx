@@ -7,6 +7,9 @@ import React, { Suspense } from "react";
 
 async function page({ params }: { params: any }) {
   const { data } = await getMember(params.regNumber);
+  if (!data) {
+    return;
+  }
   const {
     regNumber,
     name,
