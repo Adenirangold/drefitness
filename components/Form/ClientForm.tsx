@@ -27,10 +27,12 @@ import { registerMemberAction, updateMemberAction } from "@/lib/action";
 import { useRouter } from "next/navigation";
 import { numberOfDays } from "@/lib/utils";
 import DeleteAlertDialog from "../DeleteAlertDialog";
+import { useState } from "react";
 
 const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
   const router = useRouter();
   const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
 
   const numberOfDaysRemaining = numberOfDays(subscriptionTypes, user);
 
@@ -63,9 +65,11 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
     },
   });
 
-  const { isSubmitting } = form.formState;
+  // const { isSubmitting } = form.formState;
 
   const onSubmit = async (values: z.infer<typeof clientFormValidation>) => {
+    setIsLoading(true);
+
     const input = {
       regNumber: values.regNumber,
       name: values.name,
@@ -91,6 +95,7 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
         const { error } = await updateMemberAction({ ...input });
 
         if (error) {
+          setIsLoading(false);
           toast({
             title: "Error Occured",
             description: error,
@@ -102,6 +107,7 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
           description: "Updated Member Details Sucessfully",
           className: " toast-container toast-sucess",
         });
+        setIsLoading(false);
 
         return;
       }
@@ -116,14 +122,15 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
         });
         throw new Error(error);
       }
+      await router.push(redirect!);
       toast({
         title: "Success",
         description: "Member created sucessfully",
         className: " toast-container toast-sucess",
       });
-      router.push(redirect!);
     } catch (err) {
       console.log(err);
+      setIsLoading(false);
     }
   };
 
@@ -419,7 +426,7 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
             <DeleteAlertDialog regNumber={user?.regNumber}></DeleteAlertDialog>
           )}
           <SubmitButton
-            isLoading={isSubmitting}
+            isLoading={isLoading}
             className={`${user ? "" : "w-full"} shad-primary-btn`}
           >
             {user ? "EDIT CLIENT" : "REGISTER CLIENT"}

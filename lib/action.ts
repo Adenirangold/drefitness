@@ -5,6 +5,7 @@ import { connectToDb } from "@/utils/database";
 import { revalidatePath } from "next/cache";
 import { numberOfDays } from "./utils";
 import { subscriptionTypes } from "@/constants";
+import { redirect } from "next/navigation";
 
 export const registerMemberAction = async ({
   regNumber,
@@ -166,7 +167,7 @@ export const deleteClientAction = async (regNumber: string) => {
       };
     }
 
-    await revalidatePath("/admin");
+    revalidatePath("/admin");
     return {
       message: `Member with registration number ${regNumber} has been deleted successfully.`,
     };

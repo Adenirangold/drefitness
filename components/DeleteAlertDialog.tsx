@@ -12,6 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { deleteClientAction } from "@/lib/action";
+import { revalidatePath } from "next/cache";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -33,20 +34,20 @@ function DeleteAlertDialog({ regNumber }: { regNumber: string }) {
         });
         return;
       }
+      router.push("/admin");
       toast({
         title: "Sucess",
         description: message,
         className: " toast-container toast-sucess",
       });
-      await router.push("/admin");
     } catch (err) {
+      console.log(err);
+
       toast({
         title: "Error Occured",
         description: "Internal Server Error",
         className: " toast-container toast-error",
       });
-    } finally {
-      setIsLoading(false);
     }
   };
   return (
