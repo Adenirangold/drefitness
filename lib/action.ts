@@ -166,9 +166,7 @@ export const deleteClientAction = async (regNumber: string) => {
       };
     }
 
-    Promise.resolve(revalidatePath("/admin")).catch((err) => {
-      console.error("Revalidation failed: ", err);
-    });
+    await revalidatePath("/admin");
     return {
       message: `Member with registration number ${regNumber} has been deleted successfully.`,
     };

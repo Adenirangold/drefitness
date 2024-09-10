@@ -38,7 +38,7 @@ function DeleteAlertDialog({ regNumber }: { regNumber: string }) {
         description: message,
         className: " toast-container toast-sucess",
       });
-      router.push("/admin");
+      await router.push("/admin");
     } catch (err) {
       toast({
         title: "Error Occured",

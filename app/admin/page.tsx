@@ -1,4 +1,5 @@
 import AddClientButton from "@/components/AddClientButton";
+import Spinner from "@/components/Spinner";
 import StartCard from "@/components/StartCard";
 import SubmitButton from "@/components/SubmitButton";
 import { columns } from "@/components/table/columns";
@@ -8,7 +9,7 @@ import { getMembers } from "@/lib/action";
 import { numberOfDays } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { Suspense } from "react";
 
 async function AdminPage() {
   let data: any[] = [];
@@ -65,23 +66,25 @@ async function AdminPage() {
           />
         </Link>
       </header>
-      <main className="admin-main">
-        <section className="w-full">
-          <div className="flex flex-col sm:flex-row sm:items-center">
-            <div className="space-y-4 sm:mr-auto">
-              <h1 className="header">Welcome Admin 👋</h1>
-              <p className="text-dark-700 ">
-                Start the day with managing clients information
-              </p>
-              <StartCard></StartCard>
+      <Suspense fallback={<Spinner></Spinner>}>
+        <main className="admin-main">
+          <section className="w-full">
+            <div className="flex flex-col sm:flex-row sm:items-center">
+              <div className="space-y-4 sm:mr-auto">
+                <h1 className="header">Welcome Admin 👋</h1>
+                <p className="text-dark-700 ">
+                  Start the day with managing clients information
+                </p>
+                <StartCard></StartCard>
+              </div>
+              <div className="my-10 sm:mt-0">
+                <AddClientButton />
+              </div>
             </div>
-            <div className="my-10 sm:mt-0">
-              <AddClientButton />
-            </div>
-          </div>
-        </section>
-        <DataTable data={data} columns={columns} />
-      </main>
+          </section>
+          <DataTable data={data} columns={columns} />
+        </main>
+      </Suspense>
     </div>
   );
 }
