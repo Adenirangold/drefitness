@@ -129,7 +129,6 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
         className: " toast-container toast-sucess",
       });
     } catch (err) {
-      console.log(err);
       setIsLoading(false);
     }
   };
