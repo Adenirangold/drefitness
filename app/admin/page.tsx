@@ -6,7 +6,7 @@ import { columns } from "@/components/table/columns";
 import DataTable from "@/components/table/DataTable";
 import { subscriptionTypes } from "@/constants";
 import { getMembers } from "@/lib/action";
-import { numberOfDays } from "@/lib/utils";
+import { capitalizeWords, numberOfDays } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import React, { Suspense } from "react";
@@ -35,7 +35,7 @@ async function AdminPage() {
 
           return {
             regNumber: member.regNumber,
-            name: member.name,
+            name: capitalizeWords(member.name),
             phoneNumber: member.phoneNumber,
             typeOfSubscription: member.typeOfSubscription,
             subscriptionActive,

@@ -40,3 +40,13 @@ export const numberOfDays = (subscriptionTypes: any, memberData: any) => {
 
   return numberOfDaysRemaining;
 };
+
+export function capitalizeWords(str: string) {
+  if (!str) return str;
+
+  const words = str.trim().split(/\s+/);
+
+  return words
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
+}
