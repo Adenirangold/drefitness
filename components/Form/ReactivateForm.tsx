@@ -17,7 +17,7 @@ import CustomFormField, { FormFieldType } from "../CustomFormField";
 import { RegisterDefaultValue, subscriptionTypes } from "@/constants";
 
 import SubmitButton from "../SubmitButton";
-import { updateMemberAction } from "@/lib/action";
+import { reactivateMemberAction } from "@/lib/action";
 import { toast } from "@/hooks/use-toast";
 
 const ReactivateForm = ({
@@ -45,8 +45,8 @@ const ReactivateForm = ({
       typeOfSubscription: values.typeOfSubscription,
       paymentConfirmed: values.paymentConfirmed,
     };
-    console.log(values);
-    const { error } = await updateMemberAction({ ...input });
+
+    const { error } = await reactivateMemberAction({ ...input });
 
     if (error) {
       toast({

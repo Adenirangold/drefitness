@@ -3,7 +3,7 @@ import Member from "@/model/member";
 
 import { connectToDb } from "@/utils/database";
 import { revalidatePath } from "next/cache";
-import { numberOfDays } from "./utils";
+import { calculateSubscriptionEndDate, numberOfDays } from "./utils";
 import { subscriptionTypes } from "@/constants";
 import { redirect } from "next/navigation";
 
@@ -27,6 +27,10 @@ export const registerMemberAction = async ({
   subscriptionStartingDate,
   paymentConfirmed,
 }: UserSchemaTypes) => {
+  const subscriptionEndingDate = calculateSubscriptionEndDate(
+    typeOfSubscription,
+    subscriptionStartingDate
+  );
   try {
     await connectToDb();
     const memberData = await Member.create({
@@ -48,6 +52,13 @@ export const registerMemberAction = async ({
       dateOfRegistration,
       subscriptionStartingDate,
       paymentConfirmed,
+      subscriptionHistory: [
+        {
+          subscriptionStartingDate: subscriptionStartingDate,
+          subscriptionEndingDate: subscriptionEndingDate,
+          type: typeOfSubscription,
+        },
+      ],
     });
     Promise.resolve(revalidatePath("/admin")).catch((err) => {
       console.error("Revalidation failed: ", err);
@@ -102,6 +113,98 @@ export const updateMemberAction = async ({
           "Member not found. Please ensure the registration number is correct.",
       };
     }
+    Promise.resolve(revalidatePath("/admin")).catch((err) => {
+      console.error("Revalidation failed: ", err);
+    });
+    return { redirect: "/admin" };
+  } catch (err) {
+    return {
+      error:
+        "Failed to update the member. Please check the details and try again.",
+    };
+  }
+};
+
+// export const reactivateMemberAction = async ({
+//   regNumber,
+//   ...updateData
+// }: Partial<UserSchemaTypes> & { regNumber: string }) => {
+//   const subscriptionEndingDate = calculateSubscriptionEndDate(
+//     updateData.typeOfSubscription!,
+//     updateData.subscriptionStartingDate!
+//   );
+//   try {
+//     await connectToDb();
+
+//     const updatedMember = await Member.findOneAndUpdate(
+//       { regNumber },
+//       updateData,
+//       { new: true, runValidators: true }
+//     );
+
+//     updatedMember.subscriptionHistory.push({
+//       subscriptionStartingDate: updateData.subscriptionStartingDate,
+//       subscriptionEndingDate,
+//       type: updateData.typeOfSubscription,
+//     });
+
+//     if (!updatedMember) {
+//       return {
+//         error:
+//           "Member not found. Please ensure the registration number is correct.",
+//       };
+//     }
+//     Promise.resolve(revalidatePath("/admin")).catch((err) => {
+//       console.error("Revalidation failed: ", err);
+//     });
+//     return { redirect: "/admin" };
+//   } catch (err) {
+//     return {
+//       error:
+//         "Failed to update the member. Please check the details and try again.",
+//     };
+//   }
+// };
+
+export const reactivateMemberAction = async ({
+  regNumber,
+  ...updateData
+}: Partial<UserSchemaTypes> & { regNumber: string }) => {
+  const subscriptionEndingDate = calculateSubscriptionEndDate(
+    updateData.typeOfSubscription!,
+    updateData.subscriptionStartingDate!
+  );
+  try {
+    await connectToDb();
+
+    const updatedMember = await Member.findOne({ regNumber });
+
+    if (!updatedMember) {
+      return {
+        error:
+          "Member not found. Please ensure the registration number is correct.",
+      };
+    }
+
+    const newHistoryEntry = {
+      subscriptionStartingDate: updateData.subscriptionStartingDate,
+      subscriptionEndingDate,
+      type: updateData.typeOfSubscription,
+    };
+
+    if (!updatedMember.subscriptionHistory) {
+      updatedMember.subscriptionHistory = [];
+    }
+
+    updatedMember.subscriptionHistory.push(newHistoryEntry);
+
+    updatedMember.typeOfSubscription = updateData.typeOfSubscription;
+    updatedMember.subscriptionStartingDate =
+      updateData.subscriptionStartingDate;
+    updatedMember.paymentConfirmed = updateData.paymentConfirmed;
+
+    await updatedMember.save();
+
     Promise.resolve(revalidatePath("/admin")).catch((err) => {
       console.error("Revalidation failed: ", err);
     });

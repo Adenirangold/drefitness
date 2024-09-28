@@ -1,3 +1,9 @@
+interface SubscriptionHistory {
+  subscriptionStartingDate: Date;
+  subscriptionEndingDate: Date;
+  type: string;
+}
+
 interface UserSchemaTypes {
   regNumber: string;
   name: string;
@@ -17,6 +23,7 @@ interface UserSchemaTypes {
   dateOfRegistration: Date;
   subscriptionStartingDate: Date;
   paymentConfirmed: "true" | "false";
+  subscriptionHistory?: SubscriptionHistory[];
 }
 
 interface RegisterSchemaTypes {

@@ -87,6 +87,22 @@ const memberSchema = new mongoose.Schema({
     enum: ["true", "false"],
     required: [true, "Payment confirmation is required"],
   },
+  subscriptionHistory: [
+    {
+      subscriptionStartingDate: {
+        type: Date,
+        required: true,
+      },
+      subscriptionEndingDate: {
+        type: Date,
+        required: true,
+      },
+      type: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 });
 
 const Member =

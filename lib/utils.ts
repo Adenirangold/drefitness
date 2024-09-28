@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import bcrypt from "bcryptjs";
+import { subscriptionTypes } from "@/constants";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -50,3 +51,24 @@ export function capitalizeWords(str: string) {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join(" ");
 }
+
+export const calculateSubscriptionEndDate = (
+  typeOfSubscription: string,
+  subscriptionStartingDate: Date
+): Date => {
+  const subscription = subscriptionTypes.find(
+    (sub) => sub.name === typeOfSubscription
+  );
+
+  if (!subscription) {
+    throw new Error("Invalid subscription type.");
+  }
+
+  const { duration } = subscription;
+
+  const subscriptionEndingDate = new Date(
+    subscriptionStartingDate.getTime() + duration * 24 * 60 * 60 * 1000
+  );
+
+  return subscriptionEndingDate;
+};
