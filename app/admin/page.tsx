@@ -78,7 +78,11 @@ async function AdminPage() {
                 <StartCard></StartCard>
               </div>
               <div className="my-10 sm:mt-0">
-                <AddClientButton />
+                <AddClientButton
+                  text="ADD NEW CLIENT"
+                  route={"/admin/add-client"}
+                  imageSrc="/assets/icons/add-plus.svg"
+                />
               </div>
             </div>
           </section>

@@ -108,6 +108,7 @@ const ClientForm = ({ user }: { user?: UserSchemaTypes }) => {
           className: " toast-container toast-sucess",
         });
         setIsLoading(false);
+        await router.push(`/admin/${user.regNumber}`);
 
         return;
       }

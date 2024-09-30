@@ -11,7 +11,8 @@ function DetailsButton({ client }: { client: AdminTable }) {
     <Button
       onClick={() => {
         setLoading(true);
-        router.push(`/admin/add-client/${client.regNumber}`);
+        // router.push(`/admin/add-client/${client.regNumber}`);
+        router.push(`/admin/${client.regNumber}`);
       }}
       variant="ghost"
       className="capitalize border-2 border-blue-600  shadow-lg text-light-200"

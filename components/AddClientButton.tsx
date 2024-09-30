@@ -4,7 +4,15 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { Button } from "./ui/button";
 
-function AddClientButton() {
+function AddClientButton({
+  route,
+  text,
+  imageSrc,
+}: {
+  route: string;
+  text: string;
+  imageSrc: string;
+}) {
   const router = useRouter();
   const [isLoading, setIsloading] = useState(false);
   return (
@@ -13,7 +21,7 @@ function AddClientButton() {
       onClick={() => {
         setIsloading(true);
 
-        router.push("/admin/add-client");
+        router.push(route);
       }}
     >
       {!isLoading ? (
@@ -22,10 +30,10 @@ function AddClientButton() {
             width={50}
             alt="plus"
             height={20}
-            src="/assets/icons/add-plus.svg"
+            src={imageSrc}
             className="w-6 h-6 mr-2"
           />
-          ADD NEW CLIENT
+          {text}
         </div>
       ) : (
         <div className="flex items-center gap-4">

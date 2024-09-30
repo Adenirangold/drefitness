@@ -56,3 +56,41 @@ export const subscriptionTypes = [
   { name: "Family4-semiannual", duration: 180 },
   { name: "Family4-annual", duration: 365 },
 ];
+
+export const Fakeuser = {
+  regNumber: "288",
+  name: "Adeniran Gold",
+  phoneNumber: "08129959272",
+  email: "adeniranbayogold@gmail.com",
+  age: "",
+  gender: "Male",
+  marital: "Single",
+  address: "Taoheed road",
+  nextOfKin: "Mrs Oyebanji",
+  nextOfKinPhoneNumber: "08129959272",
+  medicalClearance: "true",
+  currentHealthIssue: "Nil",
+  currentWeight: "95",
+  currentHeight: "187",
+  typeOfSubscription: "Individual-semiannual",
+  dateOfRegistration: new Date("2024-09-10T10:47:24.458Z"),
+  subscriptionStartingDate: new Date("2024-09-28T19:13:15.837Z"),
+  paymentConfirmed: "true",
+  subscriptionHistory: [
+    {
+      subscriptionStartingDate: new Date("2024-09-28T19:13:15.837Z"),
+      subscriptionEndingDate: new Date("2024-11-27T19:13:15.837Z"),
+      type: "Couple-bimonthly",
+    },
+    {
+      subscriptionStartingDate: new Date("2024-09-28T19:19:42.523Z"),
+      subscriptionEndingDate: new Date("2024-11-27T19:19:42.523Z"),
+      type: "Couple-bimonthly",
+    },
+    {
+      subscriptionStartingDate: new Date("2024-09-28T19:13:15.837Z"),
+      subscriptionEndingDate: new Date("2025-03-27T19:13:15.837Z"),
+      type: "Individual-semiannual",
+    },
+  ],
+};

@@ -6,7 +6,11 @@ import Link from "next/link";
 import React, { Suspense } from "react";
 
 async function page({ params }: { params: any }) {
+  //   console.log(params);
+
   const { data } = await getMember(params.regNumber);
+  // console.log(data);
+
   if (!data) {
     return;
   }
@@ -30,6 +34,7 @@ async function page({ params }: { params: any }) {
     subscriptionStartingDate,
     paymentConfirmed,
   } = data;
+
   const user = {
     regNumber,
     name,
