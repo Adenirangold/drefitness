@@ -9,7 +9,9 @@ import {
   Weight,
   Ruler,
   Clock,
-  Edit,
+  Dumbbell,
+  HeartPulse,
+  SquareActivity,
 } from "lucide-react";
 import { formatDate, numberOfDays } from "@/lib/utils";
 import { useRouter } from "next/navigation";
@@ -47,7 +49,7 @@ const UserProfile = ({ user }: { user: UserSchemaTypes }) => {
       </section>
 
       <div className="flex justify-between mb-12 flex-col gap-6 xl:flex-row">
-        <section className="space-y-6">
+        <section className="space-y-6 font-medium">
           <div className="mb-9 space-y-1">
             <h2 className="sub-header">Personal Information</h2>
           </div>
@@ -55,7 +57,7 @@ const UserProfile = ({ user }: { user: UserSchemaTypes }) => {
             <User className="w-5 h-5 text-gray-500" />
             <span>{user.name}</span>
           </div>
-          <div className="flex items-center space-x-2">
+          <div className="flex font-medium items-center space-x-2">
             <Phone className="w-5 h-5 text-gray-500" />
             <span>{user.phoneNumber}</span>
           </div>
@@ -78,7 +80,7 @@ const UserProfile = ({ user }: { user: UserSchemaTypes }) => {
             <span>{user.address}</span>
           </div>
         </section>
-        <section className="space-y-6">
+        <section className="space-y-6 font-medium">
           <div className="mb-9 space-y-1">
             <h2 className="sub-header">Next Of Kin Information</h2>
           </div>
@@ -94,14 +96,24 @@ const UserProfile = ({ user }: { user: UserSchemaTypes }) => {
       </div>
 
       <div className="flex mb-12 justify-between flex-col gap-6 xl:flex-row">
-        <section className=" space-y-6">
+        <section className=" font-medium space-y-6">
           <div className="mb-9 space-y-1">
             <h2 className="sub-header">Health Information</h2>
           </div>
-          <p>
-            Medical Clearance: {user.medicalClearance === "true" ? "Yes" : "No"}
-          </p>
-          <p>Current Health Issue: {user.currentHealthIssue || "None"}</p>
+          <div className="flex items-center space-x-2">
+            <SquareActivity className="w-5 h-5 text-gray-500" />
+            <span>
+              Medical Clearance:{" "}
+              {user.medicalClearance === "true" ? "Yes" : "No"}
+            </span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <HeartPulse className="w-5 h-5 text-gray-500" />
+            <span>
+              Current Health Issue: {user.currentHealthIssue || "None"}
+            </span>
+          </div>
+
           <div className="flex items-center">
             <Weight className="w-5 h-5 text-gray-500 mr-1" />
             <span>{user.currentWeight} kg</span>
@@ -111,26 +123,27 @@ const UserProfile = ({ user }: { user: UserSchemaTypes }) => {
             <span>{user.currentHeight} cm</span>
           </div>
         </section>
-        <section className="space-y-6">
+        <section className="font-medium space-y-6">
           <div className="mb-9 space-y-1">
             <h2 className="sub-header"> Subscription Information</h2>
           </div>
           <div className="flex items-center space-x-2">
             <Clock className="w-4 h-4 text-gray-500" />
-            <span className="text-sm">
+            <span className="">
               Registration Date: {formatDate(user.dateOfRegistration)}
             </span>
           </div>
           <div className="flex items-center space-x-2">
             <Clock className="w-4 h-4 text-gray-500" />
-            <span className="text-sm">
+            <span className="">
               Current Subscription Date:{" "}
               {formatDate(user.subscriptionStartingDate)}
             </span>
           </div>
           <div className="flex items-center space-x-2">
-            <span className="text-sm font-medium">
-              Subscription Type: {user.typeOfSubscription}
+            <Dumbbell className="w-4 h-4 text-gray-500" />
+            <span className=" font-medium">
+              Subcription: {user.typeOfSubscription}
             </span>
           </div>
         </section>
