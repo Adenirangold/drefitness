@@ -21,7 +21,7 @@ export const StatusBadge = ({
             ? "/assets/icons/check.svg"
             : "/assets/icons/cancelled.svg"
         }
-        alt="doctor"
+        alt="gym"
         width={24}
         height={24}
         className="h-fit w-3"

@@ -354,6 +354,9 @@
 .toast-sucess {
   @apply bg-green-800;
 }
+.lucide-icons {
+  @apply w-5 h-5 text-gray-500;
+}
 
 .spinner {
   margin: 3.2rem auto 1.6rem;
@@ -364,6 +367,7 @@
   border-right-color: theme("colors.blue.400");
   animation: rotate 1s infinite linear;
 }
+
 .spinner-mini {
   margin: 0;
   width: 20px;
