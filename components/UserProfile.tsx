@@ -185,15 +185,17 @@ const UserProfile = ({ user }: { user: UserSchemaTypes }) => {
                           {formatDate(sub.startingDate)} -{" "}
                           {formatDate(sub.endingDate)}
                         </p>
-                        {isRecent ? (
-                          <p className="text-xs text-green-500">
-                            Recent Subscription
-                          </p>
-                        ) : (
-                          <p className="text-xs text-red-500">
-                            Expired Subscription
-                          </p>
-                        )}
+
+                        <div className="ml-auto mt-3">
+                          <StatusBadge
+                            status={isRecent ? "true" : "false"}
+                            text={
+                              isRecent
+                                ? "Recent Subscription"
+                                : "Expired Subscription"
+                            }
+                          ></StatusBadge>
+                        </div>
                       </div>
                     </div>
                   </div>
