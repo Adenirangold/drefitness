@@ -18,6 +18,9 @@ const config = {
       },
     },
     extend: {
+      fontSize: {
+        base: "16px",
+      },
       colors: {
         green: {
           500: "#24AE7C",
